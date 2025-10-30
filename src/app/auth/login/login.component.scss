@@ -1,0 +1,209 @@
+$primary: #004d40;
+$primary-dark: #00352d;
+$accent: #d4af37;
+$text-dark: #212121;
+$text-light: #555555;
+$bg-light: #ffffff;
+$bg-gradient: linear-gradient(135deg, #004d40 0%, #00695c 100%);
+
+.login-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  font-family: 'Segoe UI', sans-serif;
+
+  .login-form-section {
+    width: 30%;
+    background: $bg-light;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+
+    .form-wrapper {
+      width: 100%;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      .title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: $primary;
+        margin-bottom: 0.25rem;
+      }
+
+      .subtitle {
+        color: $text-light;
+        margin-bottom: 2rem;
+      }
+
+      form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+
+        .form-group {
+          width: 100%;
+          text-align: left;
+
+          label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+            color: $text-dark;
+          }
+
+          input {
+            width: 92%;
+            padding: 0.7rem 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+
+            &:focus {
+              border-color: $primary;
+              outline: none;
+            }
+          }
+
+          .error {
+            margin-top: 0.25rem;
+
+            small {
+              display: block;
+              color: #d93025;
+              font-size: 0.8rem;
+            }
+          }
+        }
+
+        .btn-submit {
+          background: $accent;
+          color: $primary-dark;
+          border: none;
+          padding: 0.8rem;
+          border-radius: 6px;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          width: 100%;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: darken($accent, 10%);
+          }
+        }
+
+        .error-server {
+          margin-top: 1rem;
+          color: #d93025;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+
+  .login-bg-section {
+    width: 70%;
+    position: relative;
+    color: white;
+    display: flex;
+    align-items: flex-end; 
+    justify-content: flex-end; 
+    text-align: right; 
+    padding: 1rem;
+
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+      url('../../../../public/img/fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    .overlay {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
+      backdrop-filter: blur(2px);
+
+      .logo {
+        width: 180px; 
+        filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.4)); 
+        opacity: 0.95;
+        transition: transform 0.4s ease, opacity 0.4s ease;
+
+        &:hover {
+          transform: scale(1.05);
+          opacity: 1;
+        }
+      }
+
+      h2 {
+        font-size: 2.2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      }
+
+      p {
+        font-size: 1.1rem;
+        max-width: 400px;
+        margin: 0 auto;
+        line-height: 1.5;
+        opacity: 0.9;
+      }
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.25);
+      z-index: 1;
+    }
+  }
+
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    .login-form-section,
+    .login-bg-section {
+      width: 100%;
+      height: 50%;
+    }
+
+    .login-bg-section {
+      order: -1;
+    }
+  }
+}
+
+.register-link {
+  margin-top: 1.5rem;
+  text-align: center;
+
+  p {
+    font-size: 0.9rem;
+    color: $text-light;
+  }
+
+  .link {
+    color: $primary;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $primary-dark;
+      text-decoration: underline;
+    }
+  }
+}
