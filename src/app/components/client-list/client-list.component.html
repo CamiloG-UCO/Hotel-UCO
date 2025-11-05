@@ -1,0 +1,46 @@
+<h2 class="title">Gestión de Clientes</h2>
+
+<section class="list-section">
+  <h3>Lista de Clientes</h3>
+
+  <ul class="client-list">
+    <li *ngFor="let client of clients" class="client-item">
+      <strong>{{ client.name }} {{ client.lastNames }}</strong>
+      <span>{{ client.documentType }} {{ client.documentNumber }}</span>
+      <span>{{ client.email }}</span>
+      <span>{{ client.phone }}</span>
+    </li>
+  </ul>
+</section>
+
+<hr>
+
+<section class="search-section">
+  <h3>Buscar Cliente</h3>
+
+  <div class="search-group">
+    <input #doc type="text" placeholder="Buscar por documento">
+    <button (click)="getClientByDocument(doc.value)">Buscar</button>
+  </div>
+
+  <div class="search-group">
+    <input #email type="text" placeholder="Buscar por email">
+    <button (click)="getClientByEmail(email.value)">Buscar</button>
+  </div>
+
+  <div class="search-group">
+    <input #phone type="text" placeholder="Buscar por teléfono">
+    <button (click)="getClientByPhone(phone.value)">Buscar</button>
+  </div>
+</section>
+
+<hr>
+
+<div *ngIf="selectedClient" class="card">
+    <h4>Cliente Seleccionado</h4>
+    <p><strong>Nombre:</strong> {{ selectedClient.name }} {{ selectedClient.lastNames }}</p>
+    <p><strong>Documento:</strong> {{ selectedClient.documentType }} {{ selectedClient.documentNumber }}</p>
+    <p><strong>Email:</strong> {{ selectedClient.email }}</p>
+    <p><strong>Teléfono:</strong> {{ selectedClient.phone }}</p>
+  </div>
+  
