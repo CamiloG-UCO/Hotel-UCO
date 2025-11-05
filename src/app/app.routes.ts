@@ -4,8 +4,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { NgModule } from '@angular/core';
 import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './components/home/home.component';
-
-
+import { CancelReservationComponent } from './components/cancel-reservation/cancel-reservation.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -13,7 +12,8 @@ export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
   //Rutas privadas!!!!
-  { path: 'home', component: HomeComponent, canActivate: [authGuard] }
+  { path: 'home', component: HomeComponent, canActivate: [authGuard] },
+  { path: 'cancelarreservas', component: CancelReservationComponent, canActivate: [authGuard] }
 ];
 
 

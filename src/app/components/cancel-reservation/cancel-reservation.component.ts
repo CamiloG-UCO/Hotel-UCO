@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CancelReservationService } from '../../services/reservation/cancel-reservation/cancel-reservation.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cancel-reservation',
@@ -11,88 +13,97 @@ import { CancelReservationService } from '../../services/reservation/cancel-rese
   styleUrl: './cancel-reservation.component.scss'
 })
 export class CancelReservationComponent implements OnInit {
-  roomCode: string = '';
-  booking: any = null;
+  dummyBooking: any = null;
+  bookings: any[] = [];
   loading: boolean = false;
-  error: string | null = null;
-  success: string | null = null;
-  showForm: boolean = true;
+  canceling: boolean = false;
 
-  constructor(private cancelReservationService: CancelReservationService) {}
+  constructor(
+    private cancelReservationService: CancelReservationService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.resetMessages();
+    this.loadAllBookings();
   }
 
-  /**
-   * Busca una reserva por código de habitación
-   */
-  searchBooking(): void {
-    if (!this.roomCode.trim()) {
-      this.error = 'Por favor ingresa el código de la habitación';
-      return;
-    }
-
+  loadDummyBooking(): void {
     this.loading = true;
-    this.error = null;
-    this.success = null;
-
-    this.cancelReservationService.getBookingByRoom(this.roomCode).subscribe({
+    this.cancelReservationService.getDummyBooking().subscribe({
       next: (data) => {
-        this.booking = data;
+        this.dummyBooking = data;
         this.loading = false;
+        
+        // Mostrar en alerta SweetAlert2
+        Swal.fire({
+          title: '✅ Reserva de Prueba Generada',
+          html: `
+            <div style="text-align: left; font-size: 0.95rem;">
+              <p><strong>Cliente:</strong> ${data.client?.name}</p>
+              <p><strong>Email:</strong> ${data.client?.email}</p>
+              <p><strong>Hotel:</strong> ${data.room?.hotel?.name}</p>
+              <p><strong>Habitación:</strong> ${data.room?.code}</p>
+            </div>
+          `,
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        }).then(() => {
+          // Refrescar la tabla después de cerrar la alerta
+          this.loadAllBookings();
+        });
       },
       error: (err) => {
         this.loading = false;
-        this.error = 'No se encontró la reserva. Verifica el código de la habitación.';
-        this.booking = null;
+        Swal.fire('Error', 'No se pudo cargar la reserva de prueba', 'error');
       }
     });
   }
 
-  /**
-   * Cancela la reserva
-   */
-  cancelBooking(): void {
-    if (!this.booking) {
-      this.error = 'No hay reserva seleccionada';
-      return;
-    }
-
-    if (confirm('¿Estás seguro de que deseas cancelar esta reserva?')) {
-      this.loading = true;
-      this.error = null;
-
-      this.cancelReservationService.cancelBooking(this.roomCode).subscribe({
-        next: (response) => {
-          this.loading = false;
-          this.success = response || 'Reserva cancelada exitosamente';
-          this.booking = null;
-          this.roomCode = '';
-          setTimeout(() => this.resetMessages(), 3000);
-        },
-        error: (err) => {
-          this.loading = false;
-          this.error = 'Error al cancelar la reserva. Intenta nuevamente.';
-        }
-      });
-    }
+  loadAllBookings(): void {
+    this.loading = true;
+    this.cancelReservationService.getAllBookings().subscribe({
+      next: (data) => {
+        this.bookings = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.loading = false;
+        Swal.fire('Error', 'No se pudo cargar las reservas', 'error');
+      }
+    });
   }
 
-  /**
-   * Reinicia el formulario
-   */
-  resetForm(): void {
-    this.roomCode = '';
-    this.booking = null;
-    this.resetMessages();
+  goHome(): void {
+    this.router.navigate(['/home']);
   }
 
-  /**
-   * Limpia los mensajes de error y éxito
-   */
-  private resetMessages(): void {
-    this.error = null;
-    this.success = null;
+  cancelBooking(roomCode: string, bookingId: string, userEmail: string): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `¿Deseas cancelar la reserva de la habitación ${roomCode}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, cancelar',
+      cancelButtonText: 'No, volver atrás'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.canceling = true;
+        this.cancelReservationService.cancelBooking(userEmail, roomCode).subscribe({
+          next: (response) => {
+            this.canceling = false;
+            Swal.fire('Éxito', 'Reserva cancelada correctamente', 'success').then(() => {
+              this.loadAllBookings();
+            });
+          },
+          error: (err) => {
+            this.canceling = false;
+            console.error('Error al cancelar:', err);
+            Swal.fire('Error', 'No se pudo cancelar la reserva', 'error');
+          }
+        });
+      }
+    });
   }
 }

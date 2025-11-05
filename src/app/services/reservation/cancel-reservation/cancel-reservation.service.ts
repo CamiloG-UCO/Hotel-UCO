@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,20 +12,42 @@ export class CancelReservationService {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly cookieService: CookieService
+    private readonly authService: AuthService
   ) {}
 
-  getBookingByRoom(roomCode: string): Observable<any> {
-    const userEmail = this.cookieService.get('email');
+  private getAuthHeaders(): HttpHeaders {
+    const token = this.authService.getToken();
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+  }
+
+  getDummyBooking(): Observable<any> {
     return this.http.get<any>(
-      `${this.apiUrl}/client/${userEmail}/room/${roomCode}`
+      `${this.apiUrl}/dummy`,
+      { headers: this.getAuthHeaders() }
     );
   }
 
-  cancelBooking(roomCode: string): Observable<string> {
-    const userEmail = this.cookieService.get('email');
-    return this.http.delete<string>(
-      `${this.apiUrl}/client/${userEmail}/room/${roomCode}`
+  getAllBookings(): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${this.apiUrl}/all`,
+      { headers: this.getAuthHeaders() }
     );
+  }
+
+  getBookingByRoom(userEmail: string, roomCode: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}/client/${userEmail}/room/${roomCode}`,
+      { headers: this.getAuthHeaders() }
+    );
+  }
+
+  cancelBooking(userEmail: string, roomCode: string): Observable<string> {
+    return this.http.delete(
+      `${this.apiUrl}/client/${userEmail}/room/${roomCode}`,
+      { headers: this.getAuthHeaders(), responseType: 'text' }
+    ) as Observable<string>;
   }
 }

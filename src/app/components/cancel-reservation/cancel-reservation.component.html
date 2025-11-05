@@ -1,102 +1,67 @@
 <div class="cancel-reservation-container">
   <div class="card">
-    <h2>Cancelar Reserva</h2>
-
-    <!-- Mensaje de Éxito -->
-    <div *ngIf="success" class="alert alert-success">
-      <i class="icon-check"></i>
-      <span>{{ success }}</span>
-    </div>
-
-    <!-- Mensaje de Error -->
-    <div *ngIf="error" class="alert alert-error">
-      <i class="icon-error"></i>
-      <span>{{ error }}</span>
-    </div>
-
-    <!-- Formulario de Búsqueda -->
-    <div class="form-section" *ngIf="!booking">
-      <div class="form-group">
-        <label for="roomCode">Código de Habitación:</label>
-        <input
-          type="text"
-          id="roomCode"
-          [(ngModel)]="roomCode"
-          placeholder="Ej: R-321"
-          class="form-control"
-          [disabled]="loading"
-        />
-      </div>
-
-      <button
-        (click)="searchBooking()"
-        [disabled]="loading || !roomCode.trim()"
-        class="btn btn-primary"
-      >
-        <span *ngIf="!loading">Buscar Reserva</span>
-        <span *ngIf="loading">Buscando...</span>
+    <div class="header-section">
+      <h2>Gestionar Reservas</h2>
+      <button (click)="goHome()" class="btn btn-secondary btn-header">
+        ← Volver a Home
       </button>
     </div>
 
-    <!-- Detalles de la Reserva -->
-    <div *ngIf="booking" class="booking-details">
-      <h3>Detalles de la Reserva</h3>
+    <!-- Botón para generar Reserva de Prueba -->
+    <div class="dummy-action-section">
+      <button 
+        (click)="loadDummyBooking()" 
+        [disabled]="loading"
+        class="btn btn-primary btn-lg"
+      >
+        <span *ngIf="!loading">Generar Reserva de Prueba</span>
+        <span *ngIf="loading">Generando...</span>
+      </button>
+    </div>
 
-      <div class="detail-item">
-        <span class="label">ID Reserva:</span>
-        <span class="value">{{ booking.id }}</span>
+    <!-- Sección de Carga -->
+    <div *ngIf="loading" class="loading-section">
+      <p>Cargando reservas...</p>
+    </div>
+
+    <!-- Tabla de Reservas -->
+    <div class="bookings-section" *ngIf="!loading && bookings.length > 0">
+      <h3>Todas las Reservas</h3>
+      <div class="table-responsive">
+        <table class="bookings-table">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Email</th>
+              <th>Hotel</th>
+              <th>Habitación</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let booking of bookings" [class.loading-row]="canceling">
+              <td>{{ booking.client?.name }}</td>
+              <td>{{ booking.client?.email }}</td>
+              <td>{{ booking.room?.hotel?.name }}</td>
+              <td>{{ booking.room?.code }}</td>
+              <td>
+                <button
+                  (click)="cancelBooking(booking.room?.code, booking.id, booking.client?.email)"
+                  [disabled]="canceling"
+                  class="btn btn-danger btn-sm"
+                >
+                  Cancelar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+    </div>
 
-      <div class="detail-item">
-        <span class="label">Cliente:</span>
-        <span class="value">{{ booking.client?.name || 'N/A' }}</span>
-      </div>
-
-      <div class="detail-item">
-        <span class="label">Email:</span>
-        <span class="value">{{ booking.client?.email || 'N/A' }}</span>
-      </div>
-
-      <div class="detail-item">
-        <span class="label">Hotel:</span>
-        <span class="value">{{ booking.room?.hotel?.name || 'N/A' }}</span>
-      </div>
-
-      <div class="detail-item">
-        <span class="label">Habitación:</span>
-        <span class="value">{{ booking.room?.roomCode || 'N/A' }}</span>
-      </div>
-
-      <div class="detail-item">
-        <span class="label">Estado:</span>
-        <span class="value status" [ngClass]="booking.status?.name?.toLowerCase()">
-          {{ booking.status?.name || 'N/A' }}
-        </span>
-      </div>
-
-      <div class="detail-item">
-        <span class="label">Fecha de Reserva:</span>
-        <span class="value">{{ booking.bookingDate | date: 'dd/MM/yyyy' }}</span>
-      </div>
-
-      <div class="action-buttons">
-        <button
-          (click)="cancelBooking()"
-          [disabled]="loading"
-          class="btn btn-danger"
-        >
-          <span *ngIf="!loading">Confirmar Cancelación</span>
-          <span *ngIf="loading">Cancelando...</span>
-        </button>
-
-        <button
-          (click)="resetForm()"
-          [disabled]="loading"
-          class="btn btn-secondary"
-        >
-          Cancelar
-        </button>
-      </div>
+    <!-- Mensaje cuando no hay reservas -->
+    <div *ngIf="!loading && bookings.length === 0" class="no-bookings">
+      <p>No hay reservas disponibles</p>
     </div>
   </div>
 </div>
