@@ -1,46 +1,52 @@
-<h2 class="title">Gestión de Clientes</h2>
+<div class="header-container">
+  <h2 class="title">Gestión de Clientes</h2>
 
-<section class="list-section">
-  <h3>Lista de Clientes</h3>
+  <button (click)="goHome()" class="btn-back">
+    ← Volver al Home
+  </button>
+</div>
+
+<section class="list-section card">
+  <div class="header-actions">
+    <h3 class="section-title">Lista de Clientes</h3>
+    <button class="btn-refresh" (click)="loadAllClients()">🔄 Ver todos</button>
+  </div>
 
   <ul class="client-list">
     <li *ngFor="let client of clients" class="client-item">
-      <strong>{{ client.name }} {{ client.lastNames }}</strong>
-      <span>{{ client.documentType }} {{ client.documentNumber }}</span>
-      <span>{{ client.email }}</span>
-      <span>{{ client.phone }}</span>
+      <div class="client-info">
+        <strong class="client-name">{{ client.name }} {{ client.lastNames }}</strong>
+        <span>{{ client.documentType }} {{ client.documentNumber }}</span>
+        <span>{{ client.email }}</span>
+        <span>{{ client.phone }}</span>
+      </div>
     </li>
   </ul>
 </section>
 
-<hr>
-
-<section class="search-section">
-  <h3>Buscar Cliente</h3>
+<section class="search-section card">
+  <h3 class="section-title">Buscar Cliente</h3>
 
   <div class="search-group">
-    <input #doc type="text" placeholder="Buscar por documento">
-    <button (click)="getClientByDocument(doc.value)">Buscar</button>
+    <input #doc type="text" placeholder="Documento" class="small-input">
+    <button class="btn-search" (click)="getClientByDocument(doc.value)">Buscar</button>
   </div>
 
   <div class="search-group">
-    <input #email type="text" placeholder="Buscar por email">
-    <button (click)="getClientByEmail(email.value)">Buscar</button>
+    <input #email type="text" placeholder="Email" class="small-input">
+    <button class="btn-search" (click)="getClientByEmail(email.value)">Buscar</button>
   </div>
 
   <div class="search-group">
-    <input #phone type="text" placeholder="Buscar por teléfono">
-    <button (click)="getClientByPhone(phone.value)">Buscar</button>
+    <input #phone type="text" placeholder="Teléfono" class="small-input">
+    <button class="btn-search" (click)="getClientByPhone(phone.value)">Buscar</button>
   </div>
 </section>
 
-<hr>
-
-<div *ngIf="selectedClient" class="card">
-    <h4>Cliente Seleccionado</h4>
-    <p><strong>Nombre:</strong> {{ selectedClient.name }} {{ selectedClient.lastNames }}</p>
-    <p><strong>Documento:</strong> {{ selectedClient.documentType }} {{ selectedClient.documentNumber }}</p>
-    <p><strong>Email:</strong> {{ selectedClient.email }}</p>
-    <p><strong>Teléfono:</strong> {{ selectedClient.phone }}</p>
-  </div>
-  
+<div *ngIf="selectedClient" class="card selected-card">
+  <h4>Cliente Seleccionado</h4>
+  <p><strong>Nombre:</strong> {{ selectedClient.name }} {{ selectedClient.lastNames }}</p>
+  <p><strong>Documento:</strong> {{ selectedClient.documentType }} {{ selectedClient.documentNumber }}</p>
+  <p><strong>Email:</strong> {{ selectedClient.email }}</p>
+  <p><strong>Teléfono:</strong> {{ selectedClient.phone }}</p>
+</div>

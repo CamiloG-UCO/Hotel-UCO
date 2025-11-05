@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common'; // ✅ Import necesario para *ng
 import { HttpClientModule } from '@angular/common/http';
 import { ClientService } from '../../services/client.service';
 import { Client } from '../../models/client.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-client-list',
@@ -12,16 +13,20 @@ import { Client } from '../../models/client.model';
   templateUrl: './client-list.component.html',
 })
 export class ClientListComponent implements OnInit {
-  clients: Client[] = [];
-  selectedClient?: Client;
+  clients: Client[] = []; 
+    selectedClient?: Client;
 
-  constructor(private readonly clientService: ClientService) {}
+  constructor(private readonly clientService: ClientService,
+    private router: Router) {}
 
   ngOnInit(): void {
-    this.loadAllClients();
+  }
+  goHome(): void {
+    this.router.navigate(['/home']);
   }
 
   loadAllClients(): void {
+    this.selectedClient = undefined; // ✅ Limpia selección
     this.clientService.findAll().subscribe({
       next: data => this.clients = data,
       error: err => console.error('Error al cargar clientes', err)
@@ -47,6 +52,7 @@ export class ClientListComponent implements OnInit {
       }
     });
   }
+
 
   getClientByPhone(phone: string): void {
     this.clientService.findByPhone(phone).subscribe({
