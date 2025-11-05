@@ -1,0 +1,103 @@
+<div class="cancel-reservation-container">
+  <div class="card">
+    <h2>Cancelar Reserva</h2>
+
+    <!-- Mensaje de Éxito -->
+    <div *ngIf="success" class="alert alert-success">
+      <i class="icon-check"></i>
+      <span>{{ success }}</span>
+    </div>
+
+    <!-- Mensaje de Error -->
+    <div *ngIf="error" class="alert alert-error">
+      <i class="icon-error"></i>
+      <span>{{ error }}</span>
+    </div>
+
+    <!-- Formulario de Búsqueda -->
+    <div class="form-section" *ngIf="!booking">
+      <div class="form-group">
+        <label for="roomCode">Código de Habitación:</label>
+        <input
+          type="text"
+          id="roomCode"
+          [(ngModel)]="roomCode"
+          placeholder="Ej: R-321"
+          class="form-control"
+          [disabled]="loading"
+        />
+      </div>
+
+      <button
+        (click)="searchBooking()"
+        [disabled]="loading || !roomCode.trim()"
+        class="btn btn-primary"
+      >
+        <span *ngIf="!loading">Buscar Reserva</span>
+        <span *ngIf="loading">Buscando...</span>
+      </button>
+    </div>
+
+    <!-- Detalles de la Reserva -->
+    <div *ngIf="booking" class="booking-details">
+      <h3>Detalles de la Reserva</h3>
+
+      <div class="detail-item">
+        <span class="label">ID Reserva:</span>
+        <span class="value">{{ booking.id }}</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="label">Cliente:</span>
+        <span class="value">{{ booking.client?.name || 'N/A' }}</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="label">Email:</span>
+        <span class="value">{{ booking.client?.email || 'N/A' }}</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="label">Hotel:</span>
+        <span class="value">{{ booking.room?.hotel?.name || 'N/A' }}</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="label">Habitación:</span>
+        <span class="value">{{ booking.room?.roomCode || 'N/A' }}</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="label">Estado:</span>
+        <span class="value status" [ngClass]="booking.status?.name?.toLowerCase()">
+          {{ booking.status?.name || 'N/A' }}
+        </span>
+      </div>
+
+      <div class="detail-item">
+        <span class="label">Fecha de Reserva:</span>
+        <span class="value">{{ booking.bookingDate | date: 'dd/MM/yyyy' }}</span>
+      </div>
+
+      <div class="action-buttons">
+        <button
+          (click)="cancelBooking()"
+          [disabled]="loading"
+          class="btn btn-danger"
+        >
+          <span *ngIf="!loading">Confirmar Cancelación</span>
+          <span *ngIf="loading">Cancelando...</span>
+        </button>
+
+        <button
+          (click)="resetForm()"
+          [disabled]="loading"
+          class="btn btn-secondary"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

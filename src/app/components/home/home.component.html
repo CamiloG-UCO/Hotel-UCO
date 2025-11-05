@@ -4,10 +4,19 @@
     </div>
 
     <div class="nav-right">
+        <button (click)="openCancelReservation()" class="btn-nav">Cancelar Reserva</button>
         <button (click)="logout()">Cerrar sesión</button>
     </div>
 </nav>
 
 <main class="content">
-    <p>home</p>
+    <div class="container">
+        <div *ngIf="!showCancelReservation">
+            <h2>Bienvenido a Hotel App</h2>
+        </div>
+
+        <div *ngIf="showCancelReservation">
+            <app-cancel-reservation></app-cancel-reservation>
+        </div>
+    </div>
 </main>
