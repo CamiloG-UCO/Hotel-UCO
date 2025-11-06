@@ -22,13 +22,26 @@ export class HomeComponent {
     this.router.navigate(['/login']);
   }
 
-  goToCancelReservation(): void {
-    this.router.navigate(['/cancelarreservas']);
+  goToReservations(): void {
+    this.router.navigate(['/reservations']);
   }
-  goToClientes() {
+
+  goToClientes(): void {
     this.router.navigate(['/home/clientes']);
-  } 
+  }
   goToConfig(){
     this.router.navigate(['/config']);
+  }
+
+  goToInventario(): void {
+    this.router.navigate(['/inventario']);
+  }
+
+  goToProductos(): void {
+    this.router.navigate(['/productos']);
+  } 
+
+  goToTareasHorarios(): void {
+    this.router.navigate(['/tareas-horarios']);
   }
 }

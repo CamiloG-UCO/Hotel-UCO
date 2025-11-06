@@ -1,0 +1,11 @@
+<div id="rsv-main">
+    <h1 class="color-primary">Reservas</h1>
+    <div id="rsv-list" *ngIf="!loading">
+        <app-reservation-item
+            *ngFor="let r of reservations"
+            [reservation]="r"
+            (cancelClick)="onCancelReservation($event)"
+        >
+        </app-reservation-item>
+    </div>
+</div>

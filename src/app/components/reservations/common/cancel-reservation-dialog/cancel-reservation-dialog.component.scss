@@ -1,0 +1,32 @@
+$primary: #004d40;
+
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+}
+
+.dialog-button-pair {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.dialog-button-confirm {
+    color: $primary;
+    border: 2px solid $primary !important;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 4px 16px;
+}
+
+.dialog-button-cancel {
+    color: red;
+    border: 2px solid red !important;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 4px 16px;
+}

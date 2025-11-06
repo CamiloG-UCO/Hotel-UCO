@@ -1,0 +1,82 @@
+<div class="crear-empleado-container">
+  <h2>Registrar nuevo empleado</h2>
+
+  <form class="empleado-form" #form="ngForm" (ngSubmit)="registrarEmpleado(form)">
+    
+    <!-- Tipo y número de identificación -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="identificationTypeId">Tipo de Identificación</label>
+        <select id="identificationTypeId" name="identificationTypeId" ngModel required>
+          <option value="" disabled selected>Seleccione un tipo</option>
+          <option *ngFor="let tipo of tiposIdentificacion" [value]="tipo.id">
+            {{ tipo.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="identificationNumber">Número de Identificación</label>
+        <input type="text" id="identificationNumber" name="identificationNumber" ngModel required />
+      </div>
+    </div>
+
+    <!-- Nombre y correo -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="name">Nombre completo</label>
+        <input type="text" id="name" name="name" ngModel required />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" ngModel required />
+      </div>
+    </div>
+
+    <!-- Teléfono y contraseña -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="contactNumber">Número de contacto</label>
+        <input type="text" id="contactNumber" name="contactNumber" ngModel required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" name="password" ngModel required />
+      </div>
+    </div>
+
+    <!-- Rol y Hotel -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="role">Rol</label>
+        <select id="role" name="role" ngModel required>
+          <option value="" disabled selected>Seleccione un rol</option>
+          <option *ngFor="let rol of roles" [value]="rol">{{ rol }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="hotel">Hotel</label>
+        <select id="hotel" name="hotel" ngModel required>
+          <option value="" disabled selected>Seleccione un hotel</option>
+          <option *ngFor="let h of hoteles" [value]="h">{{ h }}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Salario -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="salary">Salario</label>
+        <input type="number" id="salary" name="salary" ngModel required placeholder="Ej: 1800000" />
+      </div>
+    </div>
+
+    <!-- Botón -->
+    <button class="btn-registrar" type="submit" [disabled]="form.invalid">
+      Registrar empleado
+    </button>
+  </form>
+</div>
