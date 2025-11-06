@@ -41,4 +41,9 @@ export class HomeComponent {
   goToTareasHorarios(): void {
     this.router.navigate(['/tareas-horarios']);
   }
+
+  goToEmpleados(): void {
+    this.router.navigate(['/consultar-empleado']);
+  }
+
 }
