@@ -86,6 +86,7 @@
           <th>Estado</th>
           <th>Permite reservas</th>
           <th>Último cambio</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -98,6 +99,15 @@
           <td>{{ habitacion.estadoDescripcion || habitacion.estado }}</td>
           <td>{{ habitacion.permiteReservas ? 'Sí' : 'No' }}</td>
           <td>{{ habitacion.fechaCambioEstado ? (habitacion.fechaCambioEstado | date:'short') : 'N/A' }}</td>
+          <td>
+            <button 
+              class="btn-mantenimiento" 
+              (click)="desactivarPorMantenimiento(habitacion)"
+              [disabled]="habitacion.estado !== 'ACTIVO'"
+              title="Desactivar por mantenimiento">
+              Mantenimiento
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
