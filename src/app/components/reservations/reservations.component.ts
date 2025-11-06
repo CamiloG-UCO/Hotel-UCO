@@ -4,6 +4,8 @@ import { ReservationService } from '../../services/reservation/cancel-reservatio
 import { Router } from '@angular/router';
 import { ReservationResponse } from './reservations.models';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateReservationDialogComponent } from './common/create-reservation-dialog/create-reservation-dialog.component';
 
 @Component({
   selector: 'app-reservations',
@@ -18,7 +20,8 @@ export class ReservationsComponent implements OnInit {
 
   constructor (
     private readonly reservationService: ReservationService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -41,4 +44,19 @@ export class ReservationsComponent implements OnInit {
       error: e => console.error(e)
     })
   }
+
+  openCreateDialog() {
+    const dialogRef = this.dialog.open(CreateReservationDialogComponent, {
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.reservationService.createBooking(result).subscribe({
+          next: () => this.loadReservations(),
+          error: (e) => console.error(e)
+        });
+      }
+  });
+}
 }

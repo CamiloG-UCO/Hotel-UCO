@@ -1,0 +1,39 @@
+<h2 mat-dialog-title style="color: #004d40;">Crear nueva reserva</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="reservationForm" class="reservation-form">
+
+    <mat-form-field appearance="outline" color="accent" class="full-width">
+      <mat-label>Id de habitación</mat-label>
+      <input matInput formControlName="roomId" placeholder="Ej: 101" />
+      <mat-error *ngIf="reservationForm.get('roomId')?.hasError('required')">
+        El ID de la habitación es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <div class="calendar-container">
+      <mat-label class="calendar-label">Selecciona rango de fechas</mat-label>
+
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate formControlName="startDate" placeholder="Fecha inicio">
+        <input matEndDate formControlName="endDate" placeholder="Fecha fin">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button
+    mat-flat-button
+    [style.background-color]="'#004d40'"
+    color="primary"
+    [disabled]="reservationForm.invalid"
+    (click)="onSave()"
+  >
+    Guardar
+  </button>
+</mat-dialog-actions>
