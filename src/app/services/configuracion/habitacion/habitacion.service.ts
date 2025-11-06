@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import {
   CrearHabitacionPayload,
   HabitacionPage,
@@ -50,5 +51,16 @@ export class HabitacionService {
   listarPorTipo(tipo: string): Observable<HabitacionResponse[]> {
     const params = new HttpParams().set('tipo', tipo);
     return this.http.get<HabitacionResponse[]>(`${this.apiUrl}/por-tipo`, { params });
+  }
+
+  desactivarHabitacion(payload: {
+    nombreHotel: string;
+    numeroHabitacion: string;
+    motivoDesactivacion: string;
+    usuarioSolicitante: string;
+  }): Observable<string> {
+    return this.http.post<HabitacionResponse>(`${this.apiUrl}/desactivar`, payload).pipe(
+      map(response => response.mensaje || 'Habitación desactivada por mantenimiento correctamente.')
+    );
   }
 }

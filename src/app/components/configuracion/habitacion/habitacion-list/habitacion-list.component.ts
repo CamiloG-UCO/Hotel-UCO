@@ -211,6 +211,68 @@ export class HabitacionListComponent implements OnInit {
     });
   }
 
+  desactivarPorMantenimiento(habitacion: HabitacionResponse): void {
+    if (habitacion.estado !== 'ACTIVO') {
+      return;
+    }
+
+    // Verificar si hay token de autenticación
+    const token = this.authService.getToken();
+    if (!token) {
+      alert('Debes iniciar sesión para realizar esta acción.');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    if (!confirm(`¿Deseas desactivar la habitación ${habitacion.nombre} (${habitacion.habitacionId}) por mantenimiento?`)) {
+      return;
+    }
+
+    this.mensajeError = '';
+    this.mensajeExito = '';
+
+    const payload = {
+      nombreHotel: habitacion.nombreHotel,
+      numeroHabitacion: habitacion.habitacionId,
+      motivoDesactivacion: 'Desactivar por mantenimiento',
+      usuarioSolicitante: 'admin'
+    };
+
+    console.log('Enviando datos de desactivación:', payload);
+    console.log('Token de autenticación:', token);
+
+    this.habitacionService.desactivarHabitacion(payload).subscribe({
+      next: (mensaje) => {
+        this.mensajeExito = mensaje || 'Habitación desactivada por mantenimiento correctamente.';
+        this.buscarHabitaciones();
+      },
+      error: (error) => {
+        console.error('Error al desactivar habitación:', error);
+        let mensajeError = 'No fue posible desactivar la habitación por mantenimiento.';
+        
+        if (error.status === 0) {
+          mensajeError = 'No se pudo conectar con el servidor. Verifica que el backend esté ejecutándose en http://localhost:8080';
+        } else if (error.status === 404) {
+          mensajeError = 'El endpoint de desactivación no existe (404). Verifica la URL del API.';
+        } else if (error.status === 500) {
+          mensajeError = 'Error interno del servidor (500). El backend tiene un problema.';
+        } else if (error.status === 400) {
+          mensajeError = 'Datos inválidos. Verifica que el hotel y la habitación existan.';
+        } else if (error.status === 403) {
+          mensajeError = 'No tienes permisos para desactivar habitaciones. Debes iniciar sesión con rol ADMIN.';
+        } else if (error.error && error.error.mensaje) {
+          mensajeError = `Error: ${error.error.mensaje}`;
+        } else if (error.error) {
+          mensajeError = `Error: ${error.error}`;
+        } else if (error.message) {
+          mensajeError = `Error: ${error.message}`;
+        }
+        
+        this.mensajeError = mensajeError;
+      }
+    });
+  }
+
   private obtenerHabitacionesPaginadas(): void {
     this.habitacionService.listarHabitacionesPaginadas(this.page, this.size).subscribe({
       next: (pagina) => {
