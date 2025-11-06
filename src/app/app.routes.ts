@@ -7,6 +7,8 @@ import { HomeComponent } from './components/home/home.component';
 import { CancelReservationComponent } from './components/cancel-reservation/cancel-reservation.component';
 import { ClientListComponent } from './components/client-list/client-list.component';
 import { HomeConfiguracionComponent } from './components/configuracion/home-configuracion/home-configuracion.component';
+import { HotelListComponent } from './components/configuracion/hotel/hotel-list/hotel-list.component';
+import { CrearHotelComponent } from './components/configuracion/hotel/crear-hotel/crear-hotel.component';
 
 
 export const routes: Routes = [
@@ -18,6 +20,8 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
   { path: 'cancelarreservas', component: CancelReservationComponent, canActivate: [authGuard] },
   { path: 'config', component: HomeConfiguracionComponent, canActivate: [authGuard]},
+  { path: 'hotel/list', component: HotelListComponent, canActivate: [authGuard]},
+  { path: 'hotel/new', component: CrearHotelComponent, canActivate: [authGuard]},
   { 
     path: 'home', 
     component: HomeComponent, 
