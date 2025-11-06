@@ -1,0 +1,105 @@
+<nav class="navbar">
+    <div class="nav-left">
+        <h3>Hotel App - Actualizar Hotel</h3>
+    </div>
+
+    <div class="nav-right">
+        <button (click)="logout()" class="config-button-menu">Cerrar sesión</button>
+    </div>
+</nav>
+
+<div class="card-body" *ngIf="!isLoading; else loading">
+  
+  <form (ngSubmit)="guardarActualizacion()">
+    
+    <div class="form-group">
+      <label for="codigo">Código del Hotel</label>
+      <input type="text" 
+             id="codigo" 
+             class="form-control" 
+             [(ngModel)]="hotel.hotelCodigo" 
+             name="hotelCodigo"
+             [disabled]="true"> </div>
+
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input type="text" 
+             id="nombre" 
+             class="form-control" 
+             [(ngModel)]="hotel.nombre" 
+             name="nombre"
+             required> </div>
+
+    <div class="form-group">
+      <label for="direccion">Dirección</label>
+      <input type="text" 
+             id="direccion" 
+             class="form-control" 
+             [(ngModel)]="hotel.direccion" 
+             name="direccion"
+             required> </div>
+
+    <div class="form-group">
+      <label for="ciudad">Ciudad</label>
+      <input type="text" 
+             id="ciudad" 
+             class="form-control" 
+             [(ngModel)]="hotel.ciudad" 
+             name="ciudad"
+             required> </div>
+
+    <div class="form-group">
+      <label for="departamento">Departamento</label>
+      <input type="text" 
+             id="departamento" 
+             class="form-control" 
+             [(ngModel)]="hotel.departamento" 
+             name="departamento"
+             required> </div>
+
+    <div class="form-group">
+      <label for="pais">País</label>
+      <input type="text" 
+             id="pais" 
+             class="form-control" 
+             [(ngModel)]="hotel.pais" 
+             name="pais"
+             required> </div>
+
+    <div class="form-group">
+      <label for="telefono">Teléfono</label>
+      <input type="text" 
+             id="telefono" 
+             class="form-control" 
+             [(ngModel)]="hotel.telefono" 
+             name="telefono"
+             required> </div>
+
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <textarea id="descripcion" 
+                class="form-control" 
+                [(ngModel)]="hotel.descripcion" 
+                name="descripcion"
+                rows="4">
+      </textarea>
+    </div>
+
+    <div class="form-actions">
+        <button type="button" (click)="cancelar()" class="btn-secondary">
+          Cancelar
+        </button>
+
+        <button type="submit" class="button-search">
+          Guardar Cambios
+        </button>
+    </div>
+
+  </form>
+</div>
+
+<ng-template #loading>
+  <div class="card-body">
+    <p>Cargando datos del hotel...</p>
+  </div>
+</ng-template>
