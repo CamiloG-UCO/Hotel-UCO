@@ -11,6 +11,7 @@ import { ClientListComponent } from './components/client-list/client-list.compon
 import { InventarioListComponent } from './components/inventario-list/inventario-list.component';
 import { ProductosComponent } from './components/productos/productos.component';
 import { TareasHorariosComponent } from './components/tareas-horarios/tareas-horarios.component';
+import { ConsultarEmpleadoComponent } from './components/consultar-empleado/consultar-empleado.component';
 
 
 export const routes: Routes = [
@@ -47,7 +48,10 @@ export const routes: Routes = [
     path: 'tareas-horarios',
     component: TareasHorariosComponent,
     canActivate: [authGuard]
-  }
+  },
+
+  { path: 'consultar-empleado',
+     component: ConsultarEmpleadoComponent, canActivate: [authGuard] }
 ];
 
 

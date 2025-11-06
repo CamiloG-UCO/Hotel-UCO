@@ -1,0 +1,52 @@
+<div class="container">
+
+  <!-- Filtro por código -->
+  <div class="filtro">
+    <label for="codigoBuscar">Buscar por Código:</label>
+    <input id="codigoBuscar" type="text" placeholder="EMP-1234" [(ngModel)]="codigoBuscar">
+    <button (click)="buscarPorCodigo()">Buscar</button>
+  </div>
+
+  <!-- Filtro por hotel -->
+  <div class="filtro">
+    <label for="hotelBuscar">Filtrar por Hotel:</label>
+    <select id="hotelBuscar" [(ngModel)]="hotelBuscar">
+      <option value="">-- Seleccionar hotel --</option>
+      <option *ngFor="let hotel of hoteles" [value]="hotel">{{hotel}}</option>
+    </select>
+    <button (click)="filtrarPorHotel()">Filtrar</button>
+    <button (click)="obtenerTodosEmpleados()">Mostrar Todos</button>
+  </div>
+
+  <br>
+
+  <!-- Tabla de empleados -->
+  <table *ngIf="empleados.length > 0" border="1" cellspacing="0" cellpadding="5">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Rol</th>
+        <th>Hotel</th>
+        <th>Salario</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of empleados">
+        <td>{{ emp.code }}</td>
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.roles }}</td>
+        <td>{{ emp.hotel }}</td>
+        <td>{{ emp.salary | currency:'COP':'symbol':'1.0-0' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Mensaje cuando no hay empleados -->
+  <div *ngIf="empleados.length === 0">
+    No se encontraron empleados.
+  </div>
+
+</div>
