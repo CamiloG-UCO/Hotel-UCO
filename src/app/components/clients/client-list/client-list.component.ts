@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // ✅ Import necesario para *ngFor y *ngIf
 import { HttpClientModule } from '@angular/common/http';
-import { ClientService } from '../../services/client.service';
-import { Client } from '../../models/client.model';
+import { ClientService } from '../../../services/client.service';
+import { Client } from '../../../models/client.model';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({

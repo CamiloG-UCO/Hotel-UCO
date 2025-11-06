@@ -8,7 +8,7 @@ import { CrearEmpleadoComponent } from './components/crear-empleado/crear-emplea
 import { EliminarEmpleadoComponent } from './components/eliminar-empleado/eliminar-empleado.component';
 
 import { CancelReservationComponent } from './components/cancel-reservation/cancel-reservation.component';
-import { ClientListComponent } from './components/client-list/client-list.component';
+import { ClientListComponent } from './components/clients/client-list/client-list.component';
 import { HomeConfiguracionComponent } from './components/configuracion/home-configuracion/home-configuracion.component';
 import { HotelListComponent } from './components/configuracion/hotel/hotel-list/hotel-list.component';
 import { CrearHotelComponent } from './components/configuracion/hotel/crear-hotel/crear-hotel.component';
@@ -17,11 +17,12 @@ import { ProductosComponent } from './components/productos/productos.component';
 import { TareasHorariosComponent } from './components/tareas-horarios/tareas-horarios.component';
 import { ConsultarEmpleadoComponent } from './components/consultar-empleado/consultar-empleado.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
+import { ClientCreateComponent } from './components/clients/client-create/client-create.component';
 import { ActualizarHotelComponent } from './components/configuracion/hotel/actualizar-hotel/actualizar-hotel.component';
 import { VerHotelComponent } from './components/configuracion/hotel/ver-hotel/ver-hotel.component';
 import { HabitacionListComponent } from './components/configuracion/habitacion/habitacion-list/habitacion-list.component';
 
-import { UpdateClientComponent } from './components/update-client/update-client.component';
+import { UpdateClientComponent } from './components/clients/update-client/update-client.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -73,7 +74,11 @@ export const routes: Routes = [
 
   { path: 'consultar-empleado',
      component: ConsultarEmpleadoComponent, canActivate: [authGuard] },
-  { path: 'reservations', component: ReservationsComponent }
+  { path: 'reservations', component: ReservationsComponent },
+
+  { path: 'clients/create',
+     component: ClientCreateComponent,
+     canActivate: [authGuard] },
 ];
 
 
