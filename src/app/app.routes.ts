@@ -8,6 +8,7 @@ import { CrearEmpleadoComponent } from './components/crear-empleado/crear-emplea
 
 import { CancelReservationComponent } from './components/cancel-reservation/cancel-reservation.component';
 import { ClientListComponent } from './components/client-list/client-list.component';
+import { ReservationsComponent } from './components/reservations/reservations.component';
 
 
 export const routes: Routes = [
@@ -29,7 +30,8 @@ export const routes: Routes = [
     path: 'home/clientes', 
     component: ClientListComponent, 
     canActivate: [authGuard]
-  }
+  },
+  { path: 'reservations', component: ReservationsComponent }
 ];
 
 
