@@ -28,4 +28,7 @@ export class HomeComponent {
   goToClientes() {
     this.router.navigate(['/home/clientes']);
   } 
+  goToConfig(){
+    this.router.navigate(['/config']);
+  }
 }

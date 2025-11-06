@@ -6,6 +6,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { CancelReservationComponent } from './components/cancel-reservation/cancel-reservation.component';
 import { ClientListComponent } from './components/client-list/client-list.component';
+import { HomeConfiguracionComponent } from './components/configuracion/home-configuracion/home-configuracion.component';
 
 
 export const routes: Routes = [
@@ -16,6 +17,7 @@ export const routes: Routes = [
   //Rutas privadas!!!!
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
   { path: 'cancelarreservas', component: CancelReservationComponent, canActivate: [authGuard] },
+  { path: 'config', component: HomeConfiguracionComponent, canActivate: [authGuard]},
   { 
     path: 'home', 
     component: HomeComponent, 
