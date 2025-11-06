@@ -1,52 +1,94 @@
-<div class="container">
-
-  <!-- Filtro por código -->
-  <div class="filtro">
-    <label for="codigoBuscar">Buscar por Código:</label>
-    <input id="codigoBuscar" type="text" placeholder="EMP-1234" [(ngModel)]="codigoBuscar">
-    <button (click)="buscarPorCodigo()">Buscar</button>
+<mat-card class="panel">
+  <h2>Gestión de Empleados</h2>
+  <!-- Botones de acción -->
+    <div class="action-buttons">
+    <button mat-raised-button color="primary" (click)="irRegistrarEmpleado()">
+      <mat-icon>person_add</mat-icon> Registrar Empleado
+    </button>
+    <button mat-raised-button color="accent" (click)="irActualizarEmpleado()">
+      <mat-icon>edit</mat-icon> Actualizar Empleado
+    </button>
+    <button mat-raised-button color="warn" (click)="irEliminarEmpleado()">
+      <mat-icon>delete</mat-icon> Eliminar Empleado
+    </button>
   </div>
 
-  <!-- Filtro por hotel -->
-  <div class="filtro">
-    <label for="hotelBuscar">Filtrar por Hotel:</label>
-    <select id="hotelBuscar" [(ngModel)]="hotelBuscar">
-      <option value="">-- Seleccionar hotel --</option>
-      <option *ngFor="let hotel of hoteles" [value]="hotel">{{hotel}}</option>
-    </select>
-    <button (click)="filtrarPorHotel()">Filtrar</button>
-    <button (click)="obtenerTodosEmpleados()">Mostrar Todos</button>
-  </div>
+    <button mat-raised-button color="primary" class="home-btn" (click)="irHome()">
+        <mat-icon>arrow_back</mat-icon> Home
+    </button>
 
-  <br>
+
+
+
+  <!-- Filtros -->
+  <div class="filters">
+    <mat-form-field appearance="fill" color="primary">
+      <mat-label>Buscar por código</mat-label>
+      <input matInput [(ngModel)]="codigoBuscar" placeholder="EMP-1234">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="buscarPorCodigo()">Buscar</button>
+
+    <mat-form-field appearance="fill" color="accent">
+      <mat-label>Filtrar por hotel</mat-label>
+      <mat-select [(ngModel)]="hotelBuscar">
+        <mat-option *ngFor="let hotel of hoteles" [value]="hotel">{{ hotel }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)="filtrarPorHotel()">Filtrar</button>
+  </div>
 
   <!-- Tabla de empleados -->
-  <table *ngIf="empleados.length > 0" border="1" cellspacing="0" cellpadding="5">
-    <thead>
-      <tr>
-        <th>Código</th>
-        <th>Nombre</th>
-        <th>Correo</th>
-        <th>Rol</th>
-        <th>Hotel</th>
-        <th>Salario</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let emp of empleados">
-        <td>{{ emp.code }}</td>
-        <td>{{ emp.name }}</td>
-        <td>{{ emp.email }}</td>
-        <td>{{ emp.roles }}</td>
-        <td>{{ emp.hotel }}</td>
-        <td>{{ emp.salary | currency:'COP':'symbol':'1.0-0' }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-wrapper" *ngIf="empleados.length; else emptyState">
+    <table mat-table [dataSource]="empleados" class="mat-elevation-z4">
 
-  <!-- Mensaje cuando no hay empleados -->
-  <div *ngIf="empleados.length === 0">
-    No se encontraron empleados.
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef>Código</th>
+        <td mat-cell *matCellDef="let e">{{ e.code }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let e">{{ e.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let e">{{ e.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="roles">
+        <th mat-header-cell *matHeaderCellDef>Rol</th>
+        <td mat-cell *matCellDef="let e">{{ e.roles }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="hotel">
+        <th mat-header-cell *matHeaderCellDef>Hotel</th>
+        <td mat-cell *matCellDef="let e">{{ e.hotel }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="salary">
+        <th mat-header-cell *matHeaderCellDef>Salario</th>
+        <td mat-cell *matCellDef="let e">{{ e.salary | currency:'COP':'symbol':'1.0-0' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let e">
+          <button mat-raised-button color="primary" class="action-btn">
+            Descargar ficha
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
   </div>
 
-</div>
+  <ng-template #emptyState>
+    <p class="empty">No hay empleados para mostrar.</p>
+  </ng-template>
+</mat-card>
+
+
+

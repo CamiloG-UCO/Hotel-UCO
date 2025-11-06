@@ -12,28 +12,24 @@ export class ConsultarEmpleadosService {
 
   constructor(private http: HttpClient) {}
 
-  /** Obtener todos los empleados */
   getAllEmpleados(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}`).pipe(
       catchError(this.handleError)
     );
   }
 
-  /** Consultar empleado por código */
   getEmpleadoByCode(code: string): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/${code}`).pipe(
       catchError(this.handleError)
     );
   }
 
-  /** Listar empleados por hotel */
   getEmpleadosByHotel(hotel: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/hotel/${hotel}`).pipe(
       catchError(this.handleError)
     );
   }
 
-  /** Manejo de errores HTTP */
   private handleError(error: HttpErrorResponse) {
     let mensaje = 'Error desconocido';
     if (error.status === 0) {

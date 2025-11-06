@@ -1,12 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { ConsultarEmpleadosService } from '../../services/empleados/consultar/consultar-empleados.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
+import { ConsultarEmpleadosService } from '../../services/empleados/consultar/consultar-empleados.service';
+import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-consultar-empleado',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatCardModule,
+    MatIconModule
+  ],
   templateUrl: './consultar-empleado.component.html',
   styleUrls: ['./consultar-empleado.component.scss']
 })
@@ -24,7 +43,7 @@ export class ConsultarEmpleadoComponent implements OnInit {
 
   displayedColumns: string[] = ['code', 'name', 'email', 'roles', 'hotel', 'salary'];
 
-  constructor(private consultarService: ConsultarEmpleadosService) {}
+  constructor(private consultarService: ConsultarEmpleadosService, private router: Router) {}
 
   ngOnInit(): void {
     this.obtenerTodosEmpleados();
@@ -35,9 +54,15 @@ export class ConsultarEmpleadoComponent implements OnInit {
   }
 
   buscarPorCodigo() {
-    if (!this.codigoBuscar) return;
+    if (!this.codigoBuscar.trim()) {
+      this.obtenerTodosEmpleados();
+      return;
+    }
     this.consultarService.getEmpleadoByCode(this.codigoBuscar)
-      .subscribe(res => this.empleados = [res], err => this.empleados = []);
+      .subscribe(
+        res => this.empleados = [res],
+        () => this.empleados = []
+      );
   }
 
   filtrarPorHotel() {
@@ -46,6 +71,27 @@ export class ConsultarEmpleadoComponent implements OnInit {
       return;
     }
     this.consultarService.getEmpleadosByHotel(this.hotelBuscar)
-      .subscribe(res => this.empleados = res, err => this.empleados = []);
+      .subscribe(
+        res => this.empleados = res,
+        () => this.empleados = []
+      );
   }
+
+  // Métodos para redirigir
+  irRegistrarEmpleado() {
+    this.router.navigate(['/RegistrarEmpleado']);
+  }
+
+  irActualizarEmpleado() {
+    this.router.navigate(['/actualizar-empleado']); // Asegúrate de tener esta ruta
+  }
+
+  irEliminarEmpleado() {
+    this.router.navigate(['/eliminar-empleado']); // Asegúrate de tener esta ruta
+  }
+  
+  irHome() {
+  this.router.navigate(['/home']);
+}
+
 }
