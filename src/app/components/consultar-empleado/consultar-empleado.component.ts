@@ -83,11 +83,11 @@ export class ConsultarEmpleadoComponent implements OnInit {
   }
 
   irActualizarEmpleado() {
-    this.router.navigate(['/actualizar-empleado']); // Asegúrate de tener esta ruta
+    this.router.navigate(['/ActualizarEmpleado']); // Asegúrate de tener esta ruta
   }
 
   irEliminarEmpleado() {
-    this.router.navigate(['/eliminar-empleado']); // Asegúrate de tener esta ruta
+    this.router.navigate(['/EliminarEmpleado']); // Asegúrate de tener esta ruta
   }
   
   irHome() {
