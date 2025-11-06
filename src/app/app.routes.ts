@@ -13,7 +13,7 @@ import { ProductosComponent } from './components/productos/productos.component';
 import { TareasHorariosComponent } from './components/tareas-horarios/tareas-horarios.component';
 import { ConsultarEmpleadoComponent } from './components/consultar-empleado/consultar-empleado.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
-
+import { UpdateClientComponent } from './components/update-client/update-client.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -48,6 +48,11 @@ export const routes: Routes = [
   {
     path: 'tareas-horarios',
     component: TareasHorariosComponent,
+    canActivate: [authGuard]
+  },
+    {
+    path: 'home/clientes/update',
+    component: UpdateClientComponent,
     canActivate: [authGuard]
   },
 

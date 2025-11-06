@@ -114,3 +114,16 @@
 .selected-card {
   border-left: 6px solid #00c49a;
 }
+
+
+.update-button {
+  color: #000000;
+  transition: all 0.2s ease;
+  background-color: rgba(17, 190, 32, 0.1);
+  border-radius: 10px;
+
+  &:hover {
+    transform: scale(1.1);
+    background-color: rgba(19, 95, 0, 0.15);
+  }
+}
