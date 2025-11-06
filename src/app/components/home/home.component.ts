@@ -29,6 +29,9 @@ export class HomeComponent {
   goToClientes(): void {
     this.router.navigate(['/home/clientes']);
   }
+  goToConfig(){
+    this.router.navigate(['/config']);
+  }
 
   goToInventario(): void {
     this.router.navigate(['/inventario']);

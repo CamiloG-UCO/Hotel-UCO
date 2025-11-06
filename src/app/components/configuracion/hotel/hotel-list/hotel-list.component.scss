@@ -1,0 +1,178 @@
+$accent: #d4af37;
+$primary-dark: #00352d;
+$bg-gradient: linear-gradient(135deg, #004d40 0%, #00695c 100%);
+
+.config-button-menu{
+    background-color: $accent;
+    border: none;
+    color: $primary-dark;
+    padding: 15px 24px; 
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem; 
+    transition: all 0.3s ease;
+    margin-left: 10px;
+    flex: 1;
+
+    &:hover {
+      background-color: lighten($accent, 10%);
+      transform: translateY(-2px);
+    }
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: $bg-gradient;
+  color: $accent;
+  padding: 0.1rem 1.5rem; 
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  font-family: 'Segoe UI', sans-serif;
+  gap: 10px;
+}
+
+.card-body {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  overflow: hidden;
+  margin: 20px; 
+}
+
+.top-box {
+  margin-bottom: 24px;
+}
+
+nav.search-box {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 500px;
+}
+
+input.search-box {
+  flex: 1;
+  padding: 12px 15px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  border: 2px solid lighten($primary-dark, 10%);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $accent;
+    box-shadow: 0 0 0 3px lighten($accent, 40%);
+  }
+}
+
+.button-search {
+  background-color: $accent;
+  border: none;
+  color: $primary-dark;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: lighten($accent, 10%);
+    transform: translateY(-2px);
+  }
+}
+
+.table-box {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: $primary-dark;
+  min-width: 600px; 
+}
+
+th, td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid lighten($primary-dark, 75%);
+  vertical-align: middle;
+}
+
+thead tr {
+  background: $bg-gradient;
+  color: $accent;
+}
+
+th {
+  color: $accent;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap; 
+}
+
+tbody tr {
+  transition: background-color 0.2s ease;
+
+  &:nth-of-type(even) {
+    background-color: lighten(white, 10%);
+    &:hover {
+       background-color: lighten($accent, 40%);
+    }
+  }
+
+  &:hover {
+    background-color: lighten($accent, 45%);
+  }
+}
+
+td:last-child {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-action {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  
+  &:hover {
+      transform: scale(1.05);
+  }
+}
+
+.btn-edit {
+  background-color: $accent;
+  color: $primary-dark;
+  &:hover {
+      background-color: lighten($accent, 10%);
+  }
+}
+
+.btn-delete {
+  background-color: #e74c3c;
+  color: white;
+  &:hover {
+      background-color: darken(#e74c3c, 10%);
+  }
+}
+.btn-view {
+  background-color: #3498db; // Un azul estándar para "Ver"
+  color: white;
+  &:hover {
+    background-color: darken(#3498db, 10%);
+  }
+}

@@ -9,6 +9,9 @@ import { EliminarEmpleadoComponent } from './components/eliminar-empleado/elimin
 
 import { CancelReservationComponent } from './components/cancel-reservation/cancel-reservation.component';
 import { ClientListComponent } from './components/clients/client-list/client-list.component';
+import { HomeConfiguracionComponent } from './components/configuracion/home-configuracion/home-configuracion.component';
+import { HotelListComponent } from './components/configuracion/hotel/hotel-list/hotel-list.component';
+import { CrearHotelComponent } from './components/configuracion/hotel/crear-hotel/crear-hotel.component';
 import { InventarioListComponent } from './components/inventario-list/inventario-list.component';
 import { ProductosComponent } from './components/productos/productos.component';
 import { TareasHorariosComponent } from './components/tareas-horarios/tareas-horarios.component';
@@ -16,6 +19,9 @@ import { ConsultarEmpleadoComponent } from './components/consultar-empleado/cons
 import { ReservationsComponent } from './components/reservations/reservations.component';
 import { ClientCreateComponent } from './components/clients/client-create/client-create.component';
 import { UpdateClientComponent } from './components/clients/update-client/update-client.component';
+import { ActualizarHotelComponent } from './components/configuracion/hotel/actualizar-hotel/actualizar-hotel.component';
+import { VerHotelComponent } from './components/configuracion/hotel/ver-hotel/ver-hotel.component';
+import { HabitacionListComponent } from './components/configuracion/habitacion/habitacion-list/habitacion-list.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -28,6 +34,12 @@ export const routes: Routes = [
   //Rutas privadas!!!!
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
   { path: 'cancelarreservas', component: CancelReservationComponent, canActivate: [authGuard] },
+  { path: 'config', component: HomeConfiguracionComponent, canActivate: [authGuard]},
+  { path: 'config/habitaciones', component: HabitacionListComponent, canActivate: [authGuard]},
+  { path: 'hotel/list', component: HotelListComponent, canActivate: [authGuard]},
+  { path: 'hotel/new', component: CrearHotelComponent, canActivate: [authGuard]},
+  { path: 'hotel/edit/:id', component: ActualizarHotelComponent, canActivate: [authGuard]},
+  { path: 'hotel/view', component: VerHotelComponent, canActivate: [authGuard]},
   { 
     path: 'home', 
     component: HomeComponent, 
