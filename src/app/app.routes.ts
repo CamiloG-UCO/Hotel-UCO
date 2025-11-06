@@ -6,6 +6,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { CrearEmpleadoComponent } from './components/crear-empleado/crear-empleado.component';
 import { EliminarEmpleadoComponent } from './components/eliminar-empleado/eliminar-empleado.component';
+import { ActualizarEmpleadoComponent } from './components/actualizar-empleado/actualizar-empleado.component';
 
 import { CancelReservationComponent } from './components/cancel-reservation/cancel-reservation.component';
 import { ClientListComponent } from './components/clients/client-list/client-list.component';
@@ -23,11 +24,13 @@ import { ActualizarHotelComponent } from './components/configuracion/hotel/actua
 import { VerHotelComponent } from './components/configuracion/hotel/ver-hotel/ver-hotel.component';
 import { HabitacionListComponent } from './components/configuracion/habitacion/habitacion-list/habitacion-list.component';
 
+
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'RegistrarEmpleado', component: CrearEmpleadoComponent },
   { path: 'EliminarEmpleado', component:EliminarEmpleadoComponent},
+  { path: 'ActualizarEmpleado', component: ActualizarEmpleadoComponent, canActivate: [authGuard] },
 
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
@@ -40,9 +43,9 @@ export const routes: Routes = [
   { path: 'hotel/new', component: CrearHotelComponent, canActivate: [authGuard]},
   { path: 'hotel/edit/:id', component: ActualizarHotelComponent, canActivate: [authGuard]},
   { path: 'hotel/view', component: VerHotelComponent, canActivate: [authGuard]},
-  { 
-    path: 'home', 
-    component: HomeComponent, 
+  {
+    path: 'home',
+    component: HomeComponent,
     canActivate: [authGuard]
   },
   {
