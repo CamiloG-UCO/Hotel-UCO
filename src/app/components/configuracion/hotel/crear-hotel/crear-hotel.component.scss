@@ -1,0 +1,183 @@
+/* ====== PALETA GLOBAL ====== */
+:root {
+  --color-primary: #1f524a; /* Verde oscuro */
+  --color-accent: #d1a93f;  /* Dorado */
+  --color-light: #ffffff;   /* Blanco */
+  --color-text-dark: #333;
+  --color-border: #ddd;
+}
+
+/* ====== CONTENEDOR GENERAL ====== */
+.container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* ====== TARJETA DEL FORMULARIO ====== */
+.form-card {
+  background: var(--color-light);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  border-top: 4px solid var(--color-primary);
+}
+
+h1 {
+  color: var(--color-primary);
+  margin: 0 0 1.5rem 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+/* ====== MENSAJES DE ESTADO ====== */
+.message {
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.message.error {
+  background-color: #fee;
+  color: #c33;
+  border: 1px solid #fcc;
+}
+
+.message.success {
+  background-color: #efe;
+  color: #3a3;
+  border: 1px solid #cfc;
+}
+
+/* ====== CAMPOS DE FORMULARIO ====== */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--color-primary);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.form-group .form-control {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.form-group .form-control:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(209, 169, 63, 0.2);
+}
+
+.form-group .form-control::placeholder {
+  color: #aaa;
+}
+
+textarea.form-control {
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* ====== BOTONES ====== */
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btn {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+}
+
+.btn.btn-primary:hover:not(:disabled) {
+  background-color: #b89034;
+}
+
+.btn.btn-secondary {
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+.btn.btn-secondary:hover:not(:disabled) {
+  background-color: #e8e8e8;
+}
+
+/* ====== ENCABEZADO / BARRA SUPERIOR ====== */
+header {
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  color: var(--color-accent);
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+header button {
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+header button:hover {
+  background-color: #b89034;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 640px) {
+  .container {
+    margin: 1rem auto;
+  }
+
+  .form-card {
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

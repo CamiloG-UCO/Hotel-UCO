@@ -1,1 +1,121 @@
-<p>crear-hotel works!</p>
+<div class="container">
+  <div class="form-card">
+    <h1>Registrar Nuevo Hotel</h1>
+    
+    <!-- Mensajes -->
+    <div class="message error" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+    
+    <div class="message success" *ngIf="successMessage">
+      {{ successMessage }}
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #hotelForm="ngForm">
+
+      <!-- Nombre -->
+      <div class="form-group">
+        <label for="nombre">Nombre *</label>
+        <input 
+          type="text" 
+          id="nombre" 
+          name="nombre"
+          [(ngModel)]="hotel.nombre"
+          required
+          placeholder="Nombre del hotel"
+          class="form-control">
+      </div>
+
+      <!-- Dirección -->
+      <div class="form-group">
+        <label for="direccion">Dirección</label>
+        <input 
+          type="text" 
+          id="direccion" 
+          name="direccion"
+          [(ngModel)]="hotel.direccion"
+          placeholder="Dirección completa"
+          class="form-control">
+      </div>
+
+      <!-- Ciudad -->
+      <div class="form-group">
+        <label for="ciudad">Ciudad *</label>
+        <input 
+          type="text" 
+          id="ciudad" 
+          name="ciudad"
+          [(ngModel)]="hotel.ciudad"
+          required
+          placeholder="Ciudad"
+          class="form-control">
+      </div>
+
+      <!-- Departamento -->
+      <div class="form-group">
+        <label for="departamento">Departamento</label>
+        <input 
+          type="text" 
+          id="departamento" 
+          name="departamento"
+          [(ngModel)]="hotel.departamento"
+          placeholder="Departamento o Estado"
+          class="form-control">
+      </div>
+
+      <!-- País -->
+      <div class="form-group">
+        <label for="pais">País</label>
+        <input 
+          type="text" 
+          id="pais" 
+          name="pais"
+          [(ngModel)]="hotel.pais"
+          placeholder="País"
+          class="form-control">
+      </div>
+
+      <!-- Teléfono -->
+      <div class="form-group">
+        <label for="telefono">Teléfono</label>
+        <input 
+          type="tel" 
+          id="telefono" 
+          name="telefono"
+          [(ngModel)]="hotel.telefono"
+          placeholder="Número de teléfono"
+          class="form-control">
+      </div>
+
+      <!-- Descripción -->
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea 
+          id="descripcion" 
+          name="descripcion"
+          [(ngModel)]="hotel.descripcion"
+          placeholder="Descripción del hotel"
+          rows="4"
+          class="form-control"></textarea>
+      </div>
+
+      <!-- Botones -->
+      <div class="button-group">
+        <button 
+          type="submit" 
+          class="btn btn-primary"
+          [disabled]="isSubmitting">
+          {{ isSubmitting ? 'Guardando...' : 'Guardar Hotel' }}
+        </button>
+        
+        <button 
+          type="button" 
+          class="btn btn-secondary"
+          (click)="resetForm()"
+          [disabled]="isSubmitting">
+          Limpiar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
