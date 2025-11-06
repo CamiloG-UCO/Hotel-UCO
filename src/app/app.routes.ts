@@ -10,6 +10,7 @@ import { CancelReservationComponent } from './components/cancel-reservation/canc
 import { ClientListComponent } from './components/client-list/client-list.component';
 import { InventarioListComponent } from './components/inventario-list/inventario-list.component';
 import { ProductosComponent } from './components/productos/productos.component';
+import { TareasHorariosComponent } from './components/tareas-horarios/tareas-horarios.component';
 
 
 export const routes: Routes = [
@@ -40,6 +41,11 @@ export const routes: Routes = [
   {
     path: 'productos',
     component: ProductosComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'tareas-horarios',
+    component: TareasHorariosComponent,
     canActivate: [authGuard]
   }
 ];

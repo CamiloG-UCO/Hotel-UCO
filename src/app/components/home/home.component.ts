@@ -37,4 +37,8 @@ export class HomeComponent {
   goToProductos(): void {
     this.router.navigate(['/productos']);
   } 
+
+  goToTareasHorarios(): void {
+    this.router.navigate(['/tareas-horarios']);
+  }
 }
