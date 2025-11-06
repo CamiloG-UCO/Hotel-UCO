@@ -1,0 +1,105 @@
+<mat-card class="panel">
+  <div class="panel__header">
+    <div>
+      <h2>Agendar turnos</h2>
+      <p>Selecciona a los colaboradores y define el rango de fechas para asignar turnos semanales.</p>
+    </div>
+    <button
+      mat-stroked-button
+      type="button"
+      class="gold-stroked"
+      (click)="loadEmployees()"
+      [disabled]="employeesLoading()"
+    >
+      {{ employeesLoading() ? 'Cargando…' : 'Actualizar colaboradores' }}
+    </button>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <form class="form-grid" [formGroup]="form" (ngSubmit)="scheduleShifts()">
+    <mat-form-field appearance="outline">
+      <mat-label>Colaboradores</mat-label>
+      <mat-select
+        formControlName="employees"
+        multiple
+        [disabled]="selectionDisabled()"
+      >
+        <mat-option
+          *ngFor="let employee of employees()"
+          [value]="employee"
+        >
+          {{ employee }}
+        </mat-option>
+      </mat-select>
+      <mat-hint>Selecciona uno o varios colaboradores disponibles.</mat-hint>
+      <mat-error *ngIf="fieldInvalid('employees')">
+        Debes elegir al menos un colaborador.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha inicio</mat-label>
+      <input
+        matInput
+        [matDatepicker]="pickerStart"
+        formControlName="startDate"
+        [min]="minDate()"
+      />
+      <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+      <mat-datepicker #pickerStart></mat-datepicker>
+      <mat-error *ngIf="fieldInvalid('startDate')">
+        La fecha de inicio es obligatoria.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha fin</mat-label>
+      <input
+        matInput
+        [matDatepicker]="pickerEnd"
+        formControlName="endDate"
+        [min]="minDate()"
+      />
+      <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+      <mat-datepicker #pickerEnd></mat-datepicker>
+      <mat-error *ngIf="fieldInvalid('endDate')">
+        La fecha de finalización es obligatoria.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button
+        mat-raised-button
+        type="submit"
+        class="gold-button"
+        [disabled]="scheduleLoading()"
+      >
+        {{ scheduleLoading() ? 'Agendando…' : 'Agendar turnos' }}
+      </button>
+    </div>
+  </form>
+
+  <div class="selection-preview" *ngIf="form.value.employees?.length">
+    <span class="selection-preview__label">Seleccionados:</span>
+    <mat-chip-set>
+      <mat-chip *ngFor="let selected of form.value.employees">
+        {{ selected }}
+      </mat-chip>
+    </mat-chip-set>
+  </div>
+
+  <div class="messages">
+    <div class="message message--info" *ngIf="successMessage() as success">
+      <h3>{{ success.title }}</h3>
+      <ul>
+        <li *ngFor="let item of success.items">{{ item }}</li>
+      </ul>
+    </div>
+    <div class="message message--error" *ngIf="errorMessage()">
+      {{ errorMessage() }}
+    </div>
+  </div>
+
+  <mat-progress-bar *ngIf="scheduleLoading()" mode="indeterminate"></mat-progress-bar>
+</mat-card>

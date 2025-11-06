@@ -1,0 +1,157 @@
+<mat-card class="panel">
+  <div class="panel__header">
+    <div>
+      <h2>Gestión de tareas</h2>
+      <p>Administra las tareas operativas del hotel y actualiza su estado.</p>
+    </div>
+    <button
+      mat-raised-button
+      type="button"
+      class="gold-button"
+      (click)="loadTasks()"
+      [disabled]="taskLoading()"
+    >
+      {{ taskLoading() ? 'Actualizando…' : 'Actualizar listado' }}
+    </button>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <form class="form-grid" [formGroup]="form" (ngSubmit)="createTask()">
+    <mat-form-field appearance="outline">
+      <mat-label>Descripción</mat-label>
+      <input
+        matInput
+        formControlName="description"
+        autocomplete="off"
+        placeholder="Inspeccionar habitación 205"
+      />
+      <mat-error *ngIf="fieldInvalid(form, 'description')">
+        La descripción es obligatoria.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Empleado asignado</mat-label>
+      <input
+        matInput
+        formControlName="assignedEmployee"
+        autocomplete="off"
+        placeholder="Ana Torres"
+      />
+      <mat-error *ngIf="fieldInvalid(form, 'assignedEmployee')">
+        Debes especificar a quién asignas la tarea.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Estado inicial</mat-label>
+      <mat-select formControlName="status">
+        <mat-option *ngFor="let option of statusOptions" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button
+        mat-raised-button
+        type="submit"
+        class="gold-button"
+        [disabled]="creationLoading()"
+      >
+        {{ creationLoading() ? 'Guardando…' : 'Crear tarea' }}
+      </button>
+    </div>
+  </form>
+
+  <div class="messages">
+    <div class="message message--error" *ngIf="creationError() || taskError()">
+      {{ creationError() ?? taskError() }}
+    </div>
+    <div class="message message--error" *ngIf="updateError()">
+      {{ updateError() }}
+    </div>
+    <div class="message message--info" *ngIf="creationMessage()">
+      {{ creationMessage() }}
+    </div>
+    <div class="message message--info" *ngIf="updateMessage()">
+      {{ updateMessage() }}
+    </div>
+  </div>
+
+  <mat-progress-bar *ngIf="taskLoading()" mode="indeterminate"></mat-progress-bar>
+
+  <div class="table-wrapper" *ngIf="hasTasks(); else emptyState">
+    <table mat-table [dataSource]="tasks()" class="mat-elevation-z1">
+      <ng-container matColumnDef="taskId">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let task">{{ task.taskId }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Descripción</th>
+        <td mat-cell *matCellDef="let task">{{ task.description }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="assignedEmployee">
+        <th mat-header-cell *matHeaderCellDef>Empleado</th>
+        <td mat-cell *matCellDef="let task">{{ task.assignedEmployee }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let task">{{ task.status }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="startTime">
+        <th mat-header-cell *matHeaderCellDef>Inicio</th>
+        <td mat-cell *matCellDef="let task">
+          {{ task.startTime ? (task.startTime | date: 'short') : '—' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="endTime">
+        <th mat-header-cell *matHeaderCellDef>Fin</th>
+        <td mat-cell *matCellDef="let task">
+          {{ task.endTime ? (task.endTime | date: 'short') : '—' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let task">
+          <div class="inline-actions">
+            <mat-form-field appearance="fill" class="inline-select">
+              <mat-label>Estado</mat-label>
+              <mat-select
+                [value]="statusSelections()[task.taskId] ?? task.status"
+                (selectionChange)="onStatusSelect(task.taskId, $event.value)"
+              >
+                <mat-option *ngFor="let option of statusOptions" [value]="option">
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <button
+              mat-stroked-button
+              type="button"
+              class="gold-stroked"
+              (click)="updateTaskStatus(task)"
+              [disabled]="updateLoading() === task.taskId || !shouldEnableUpdate(task.taskId, task.status)"
+            >
+              {{ updateLoading() === task.taskId ? 'Actualizando…' : 'Actualizar' }}
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns; trackBy: trackByTaskId"></tr>
+    </table>
+  </div>
+  <ng-template #emptyState>
+    <p class="table-empty">No hay tareas registradas en este momento.</p>
+  </ng-template>
+</mat-card>

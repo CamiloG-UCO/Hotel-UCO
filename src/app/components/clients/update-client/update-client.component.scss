@@ -1,0 +1,514 @@
+// Variables de color con paleta oscura personalizada
+$primary: #004d40;
+$primary-dark: #00352d;
+$accent: #d4af37;
+$text-dark: #212121;
+$text-light: #555555;
+$bg-light: #ffffff;
+$bg-gradient: linear-gradient(135deg, #004d40 0%, #00695c 100%);
+
+// Colores complementarios
+$primary-hover: #00695c;
+$accent-hover: #c19b2e;
+$border-color: #e0e0e0;
+$success-color: #2e7d32;
+$danger-color: #c62828;
+
+// Sombras
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+$shadow-colored: 0 20px 25px -5px rgba(0, 77, 64, 0.3), 0 10px 10px -5px rgba(0, 77, 64, 0.2);
+
+// Mixins útiles
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin transition-smooth {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@mixin gradient-text($color1, $color2) {
+  background: linear-gradient(135deg, $color1 0%, $color2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Reset y estilos base
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: $bg-gradient;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+// Contenedor principal
+.update-client-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+// Header Section
+.header-section {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.icon-badge {
+  @include flex-center;
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, $primary, $primary-hover);
+  border-radius: 20px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 77, 64, 0.5), 0 0 0 3px $accent;
+  color: white;
+  position: relative;
+  animation: scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1), pulse 2s ease-in-out infinite;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, $accent, $primary);
+    border-radius: 22px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+    animation: rotate 3s linear infinite;
+  }
+}
+
+.title-container {
+  max-width: 600px;
+  margin: 0 auto;
+  animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  @include gradient-text(#ffffff, $accent);
+  margin: 0 0 0.75rem 0;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #e0f2f1;
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+// Card del formulario
+.client-card {
+  background: $bg-light;
+  border-radius: 2rem;
+  padding: 3rem;
+  box-shadow: $shadow-colored;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, $primary 0%, $primary-hover 50%, $accent 100%);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(0, 77, 64, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+}
+
+// Formulario
+.updateClient-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, rgba(0, 77, 64, 0.03) 0%, rgba(0, 105, 92, 0.03) 100%);
+  border: 1px solid rgba(0, 77, 64, 0.15);
+
+  &:nth-child(2) {
+    background: linear-gradient(135deg, rgba(0, 105, 92, 0.03) 0%, rgba(212, 175, 55, 0.05) 100%);
+    border-color: rgba(0, 105, 92, 0.15);
+  }
+
+  &:nth-child(3) {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(0, 77, 64, 0.03) 100%);
+    border-color: rgba(212, 175, 55, 0.15);
+  }
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  @include gradient-text($primary, $accent);
+  margin: 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(90deg, $primary, $accent) 1;
+  letter-spacing: -0.01em;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+
+  &:nth-child(1) .label-icon {
+    color: $primary;
+  }
+
+  &:nth-child(2) .label-icon {
+    color: $accent;
+  }
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: $text-dark;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  line-height: 1.4;
+
+  &:hover .label-icon {
+    transform: scale(1.1);
+  }
+}
+
+.label-icon {
+  color: $primary;
+  flex-shrink: 0;
+  @include transition-smooth;
+}
+
+.required {
+  color: $danger-color;
+  font-weight: 700;
+  margin-left: auto;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: $text-dark;
+  background-color: $bg-light;
+  border: 2px solid $border-color;
+  border-radius: 0.75rem;
+  @include transition-smooth;
+  font-family: inherit;
+
+  &:hover {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba(0, 77, 64, 0.1);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(0, 77, 64, 0.15), 0 4px 12px rgba(0, 77, 64, 0.2);
+    transform: translateY(-1px);
+  }
+
+  &::placeholder {
+    color: $text-light;
+  }
+
+  &.invalid {
+    border-color: $danger-color;
+    background-color: rgba(198, 40, 40, 0.05);
+
+    &:focus {
+      box-shadow: 0 0 0 4px rgba(198, 40, 40, 0.2);
+    }
+  }
+
+  &.valid {
+    border-color: $success-color;
+    background-color: rgba(46, 125, 50, 0.05);
+
+    &:focus {
+      box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.2);
+    }
+  }
+}
+
+select.form-control {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23004d40' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.875rem center;
+  background-size: 1.25rem;
+  padding-right: 3rem;
+}
+
+// Acciones del formulario
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  padding-top: 2rem;
+  border-top: 2px solid transparent;
+  border-image: linear-gradient(90deg, $primary, $accent) 1;
+}
+
+.btn-cancel,
+.btn-submit {
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  @include transition-smooth;
+  @include flex-center;
+  gap: 0.5rem;
+  font-family: inherit;
+  position: relative;
+  overflow: hidden;
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btn-cancel {
+  background-color: #ffffff;
+  color: $text-dark;
+  border: 2px solid $primary;
+  box-shadow: 0 2px 8px rgba(0, 77, 64, 0.15);
+
+  &:hover {
+    background: linear-gradient(135deg, rgba(0, 77, 64, 0.08), rgba(0, 105, 92, 0.08));
+    border-color: $primary-dark;
+    color: $primary-dark;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 77, 64, 0.25);
+  }
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, $primary, $primary-hover);
+  color: white;
+  box-shadow: 0 4px 14px rgba(0, 77, 64, 0.4);
+  border: 2px solid transparent;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, $primary-dark, $accent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 0.75rem;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+
+    &::before {
+      opacity: 1;
+    }
+  }
+}
+
+.btn-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+// Animaciones
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 10px 30px rgba(0, 77, 64, 0.5), 0 0 0 3px $accent;
+  }
+  50% {
+    box-shadow: 0 10px 40px rgba(0, 77, 64, 0.7), 0 0 0 4px $accent;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .update-client-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .client-card {
+    padding: 2rem 1.5rem;
+    border-radius: 1.5rem;
+  }
+
+  .icon-badge {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1.25rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .section-title {
+    font-size: 1rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .form-section {
+    padding: 1.25rem;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+  }
+
+  .btn-cancel,
+  .btn-submit {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .update-client-container {
+    padding: 1rem 0.75rem;
+  }
+
+  .client-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .form-control {
+    font-size: 0.9375rem;
+  }
+
+  .form-section {
+    padding: 1rem;
+  }
+}
+
+// Mejoras de accesibilidad
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.form-control:focus-visible,
+.btn-cancel:focus-visible,
+.btn-submit:focus-visible {
+  outline: 3px solid $accent;
+  outline-offset: 2px;
+}

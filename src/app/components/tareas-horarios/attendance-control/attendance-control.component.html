@@ -1,0 +1,111 @@
+<mat-card class="panel">
+  <div class="panel__header">
+    <div>
+      <h2>Control de asistencia</h2>
+      <p>Registra las entradas y salidas del personal monitoreado.</p>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <form class="form-grid" [formGroup]="form" (ngSubmit)="registerEntry()">
+    <mat-form-field appearance="outline">
+      <mat-label>ID de empleado</mat-label>
+      <input
+        matInput
+        type="number"
+        min="1"
+        formControlName="employeeId"
+        placeholder="12"
+      />
+      <mat-error *ngIf="fieldInvalid(form, 'employeeId')">
+        Debes ingresar un identificador válido.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button
+        mat-raised-button
+        type="submit"
+        class="gold-button"
+        [disabled]="isLoading('entrada')"
+      >
+        {{ isLoading('entrada') ? 'Registrando entrada…' : 'Registrar entrada' }}
+      </button>
+      <button
+        mat-stroked-button
+        type="button"
+        class="gold-stroked"
+        (click)="registerExit()"
+        [disabled]="isLoading('salida')"
+      >
+        {{ isLoading('salida') ? 'Registrando salida…' : 'Registrar salida' }}
+      </button>
+    </div>
+  </form>
+
+  <div class="messages">
+    <div class="message message--error" *ngIf="error()">{{ error() }}</div>
+    <div class="message message--info" *ngIf="message()">{{ message() }}</div>
+  </div>
+
+  <mat-progress-bar *ngIf="loading()" mode="indeterminate"></mat-progress-bar>
+
+  <div class="table-wrapper" *ngIf="hasRecords(); else emptyState">
+    <table mat-table [dataSource]="records()" class="mat-elevation-z1">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let record">{{ record.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="employee">
+        <th mat-header-cell *matHeaderCellDef>Empleado</th>
+        <td mat-cell *matCellDef="let record">{{ record.empleado?.nombreCompleto ?? '—' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="entradaAsignada">
+        <th mat-header-cell *matHeaderCellDef>Entrada asignada</th>
+        <td mat-cell *matCellDef="let record">
+          {{ record.horaEntradaAsignada ? (record.horaEntradaAsignada | date: 'short') : '—' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="entradaReal">
+        <th mat-header-cell *matHeaderCellDef>Entrada real</th>
+        <td mat-cell *matCellDef="let record">
+          {{ record.horaEntradaReal ? (record.horaEntradaReal | date: 'short') : '—' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="salidaAsignada">
+        <th mat-header-cell *matHeaderCellDef>Salida asignada</th>
+        <td mat-cell *matCellDef="let record">
+          {{ record.horaSalidaAsignada ? (record.horaSalidaAsignada | date: 'short') : '—' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="salidaReal">
+        <th mat-header-cell *matHeaderCellDef>Salida real</th>
+        <td mat-cell *matCellDef="let record">
+          {{ record.horaSalidaReal ? (record.horaSalidaReal | date: 'short') : '—' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="minutosRetraso">
+        <th mat-header-cell *matHeaderCellDef>Retraso (min)</th>
+        <td mat-cell *matCellDef="let record">{{ record.minutosRetraso }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="minutosTrabajados">
+        <th mat-header-cell *matHeaderCellDef>Trabajados (min)</th>
+        <td mat-cell *matCellDef="let record">{{ record.minutosTrabajados }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns; trackBy: trackByRecord"></tr>
+    </table>
+  </div>
+  <ng-template #emptyState>
+    <p class="table-empty">Registra entradas o salidas para ver el historial del día.</p>
+  </ng-template>
+</mat-card>

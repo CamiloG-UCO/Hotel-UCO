@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Client } from '../models/client.model';
+import { Client } from '../../models/client.model';
 
 @Injectable({
   providedIn: 'root' // Angular 19 lo sigue usando igual
@@ -9,11 +9,7 @@ import { Client } from '../models/client.model';
 export class ClientService {
   private readonly apiUrl = 'http://localhost:8080/api/clientes';
 
-  private selectedClient: any = null;
-
-
-
-  constructor(private readonly http: HttpClient) { }
+  constructor(private readonly http: HttpClient) {}
 
   findAll(): Observable<Client[]> {
     return this.http.get<Client[]>(this.apiUrl);
@@ -47,13 +43,5 @@ export class ClientService {
   existsByPhone(phone: string): Observable<boolean> {
     const params = new HttpParams().set('phone', phone);
     return this.http.get<boolean>(`${this.apiUrl}/exists/phone`, { params });
-  }
-
-  setSelectedClient(client: any): void {
-    this.selectedClient = client;
-  }
-
-  getSelectedClient(): any {
-    return this.selectedClient;
   }
 }

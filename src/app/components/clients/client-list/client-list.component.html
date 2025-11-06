@@ -1,9 +1,17 @@
 <div class="header-container">
   <h2 class="title">Gestión de Clientes</h2>
 
-  <button (click)="goHome()" class="btn-back">
-    ← Volver al Home
-  </button>
+  <div class="header-buttons">
+    <!-- Botón para crear cliente -->
+    <button class="btn-create" routerLink="/clients/create">
+      ＋ Registrar cliente
+    </button>
+
+    <!-- Botón para volver -->
+    <button (click)="goHome()" class="btn-back">
+      ← Volver al Home
+    </button>
+  </div>
 </div>
 
 <section class="list-section card">
@@ -19,6 +27,9 @@
         <span>{{ client.documentType }} {{ client.documentNumber }}</span>
         <span>{{ client.email }}</span>
         <span>{{ client.phone }}</span>
+        <button class="update-button" (click)="editClient(client)">
+            Actualizar
+        </button>
       </div>
     </li>
   </ul>

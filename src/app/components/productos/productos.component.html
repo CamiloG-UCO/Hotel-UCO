@@ -1,0 +1,151 @@
+<div class="header-container">
+  <h2 class="title">Gestión de Productos</h2>
+
+  <div class="header-buttons">
+    <button (click)="goToInventario()" class="btn-inventario">
+      📊 Ver Inventario
+    </button>
+    <button (click)="goHome()" class="btn-back">
+      ← Volver al Home
+    </button>
+  </div>
+</div>
+
+<section class="form-section card">
+  <h3 class="section-title">
+    {{ isEditing ? '✏️ Editar Producto' : '➕ Crear Nuevo Producto' }}
+  </h3>
+
+  <div class="form-grid">
+    <div class="form-group">
+      <label>Código:</label>
+      <input type="text"
+             [(ngModel)]="productoForm.codigo"
+             [disabled]="isEditing"
+             placeholder="Ej: INV-GEN-045"
+             class="form-input">
+    </div>
+
+    <div class="form-group">
+      <label>Nombre:</label>
+      <input type="text"
+             [(ngModel)]="productoForm.nombre"
+             placeholder="Ej: Jabón líquido"
+             class="form-input">
+    </div>
+
+    <div class="form-group">
+      <label>Categoría:</label>
+      <input type="text"
+             [(ngModel)]="productoForm.categoria"
+             placeholder="Ej: aseo, bebidas, alimentos"
+             class="form-input">
+    </div>
+
+    <div class="form-group">
+      <label>Tipo:</label>
+      <input type="text"
+             [(ngModel)]="productoForm.tipo"
+             [disabled]="isEditing"
+             placeholder="Ej: Consumible, Activo"
+             class="form-input">
+    </div>
+
+    <div class="form-group">
+      <label>Unidad de Medida:</label>
+      <input type="text"
+             [(ngModel)]="productoForm.unidad"
+             [disabled]="isEditing"
+             placeholder="Ej: unidades, litros, kg"
+             class="form-input">
+    </div>
+
+    <div class="form-group">
+      <label>Código de Barras:</label>
+      <input type="text"
+             [(ngModel)]="productoForm.barcode"
+             [disabled]="isEditing"
+             placeholder="Ej: 7891234567890"
+             class="form-input">
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button *ngIf="!isEditing" (click)="createProducto()" class="btn-primary">
+      ➕ Crear Producto
+    </button>
+    <button *ngIf="isEditing" (click)="updateProducto()" class="btn-update">
+      💾 Guardar Cambios
+    </button>
+    <button *ngIf="isEditing" (click)="cancelEdit()" class="btn-cancel">
+      ❌ Cancelar
+    </button>
+  </div>
+
+  <div class="info-note" *ngIf="isEditing">
+    <strong>Nota:</strong> Solo se pueden editar el nombre y la categoría del producto.
+  </div>
+</section>
+
+<section class="list-section card">
+  <div class="header-actions">
+    <h3 class="section-title">Lista de Productos</h3>
+    <button class="btn-refresh" (click)="loadAllProductos()">🔄 Actualizar</button>
+  </div>
+
+  <ul class="productos-list" *ngIf="productos.length > 0">
+    <li *ngFor="let producto of productos"
+        class="producto-item"
+        (click)="selectProducto(producto)">
+      <div class="producto-info">
+        <strong class="producto-nombre">{{ producto.nombre }}</strong>
+        <span class="codigo">📋 {{ producto.codigo }}</span>
+        <span class="categoria">🏷️ {{ producto.categoria }}</span>
+        <div class="producto-details">
+          <span class="tipo">Tipo: {{ producto.tipo }}</span>
+          <span class="unidad">Unidad: {{ producto.unidad }}</span>
+        </div>
+        <span class="barcode">Barcode: {{ producto.barcode }}</span>
+      </div>
+      <div class="producto-actions">
+        <button (click)="editProducto(producto); $event.stopPropagation()" class="btn-edit">
+          ✏️
+        </button>
+        <button (click)="deleteProducto(producto.id!, producto.nombre); $event.stopPropagation()" class="btn-delete">
+          🗑️
+        </button>
+      </div>
+    </li>
+  </ul>
+
+  <div *ngIf="productos.length === 0" class="empty-message">
+    No hay productos registrados
+  </div>
+</section>
+
+<div *ngIf="selectedProducto" class="card selected-card">
+  <h4>Producto Seleccionado</h4>
+  <div class="detail-grid">
+    <div class="detail-item">
+      <strong>ID:</strong> {{ selectedProducto.id }}
+    </div>
+    <div class="detail-item">
+      <strong>Código:</strong> {{ selectedProducto.codigo }}
+    </div>
+    <div class="detail-item">
+      <strong>Nombre:</strong> {{ selectedProducto.nombre }}
+    </div>
+    <div class="detail-item">
+      <strong>Categoría:</strong> {{ selectedProducto.categoria }}
+    </div>
+    <div class="detail-item">
+      <strong>Tipo:</strong> {{ selectedProducto.tipo }}
+    </div>
+    <div class="detail-item">
+      <strong>Unidad:</strong> {{ selectedProducto.unidad }}
+    </div>
+    <div class="detail-item">
+      <strong>Código de Barras:</strong> {{ selectedProducto.barcode }}
+    </div>
+  </div>
+</div>
