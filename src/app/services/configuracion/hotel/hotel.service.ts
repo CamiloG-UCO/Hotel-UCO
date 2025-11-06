@@ -31,4 +31,10 @@ export class hotelService {
 
   }
 
+  createHotel(hotel: Hotel): Observable<any> {
+    return this.http.post(`${this.apiUrl}/create`, hotel, { 
+      responseType: 'text' 
+    });
+  }
+
 }
