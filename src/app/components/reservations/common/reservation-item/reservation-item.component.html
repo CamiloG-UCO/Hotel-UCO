@@ -1,0 +1,21 @@
+<div class="rsv-container">
+    <div>
+        <b>{{reservation?.reservationCode}}</b>
+        <br/>
+        {{reservation?.hotelName}} | {{reservation?.roomName}}
+    </div>
+    <div>
+        De:
+        <b>{{reservation?.startDate}}</b>
+        Hasta:
+        <b>{{reservation?.endDate}}</b>
+    </div>
+    <div>
+        Estado
+        <br/>
+        <b>{{reservation?.status}}</b>
+    </div>
+    <button class="cancel-button" type="button" (click)="onCancel()">
+        <u>Cancelar</u>
+    </button>
+</div>

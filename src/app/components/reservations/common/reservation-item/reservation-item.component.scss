@@ -1,0 +1,20 @@
+$primary: #004d40;
+$primary-dark: #00352d;
+$accent: #d4af37;
+$text-dark: #212121;
+$text-light: #555555;
+
+.rsv-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid $primary;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.cancel-button {
+    border: none;
+    color: red;
+}
