@@ -4,6 +4,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { NgModule } from '@angular/core';
 import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './components/home/home.component';
+import { CrearEmpleadoComponent } from './components/crear-empleado/crear-empleado.component';
+
 import { CancelReservationComponent } from './components/cancel-reservation/cancel-reservation.component';
 import { ClientListComponent } from './components/client-list/client-list.component';
 
@@ -11,6 +13,8 @@ import { ClientListComponent } from './components/client-list/client-list.compon
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'RegistrarEmpleado', component: CrearEmpleadoComponent },
+
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
   //Rutas privadas!!!!
