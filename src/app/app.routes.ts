@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { CrearEmpleadoComponent } from './components/crear-empleado/crear-empleado.component';
+import { EliminarEmpleadoComponent } from './components/eliminar-empleado/eliminar-empleado.component';
 
 import { CancelReservationComponent } from './components/cancel-reservation/cancel-reservation.component';
 import { ClientListComponent } from './components/client-list/client-list.component';
@@ -18,6 +19,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'RegistrarEmpleado', component: CrearEmpleadoComponent },
+  { path: 'EliminarEmpleado', component:EliminarEmpleadoComponent},
 
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
