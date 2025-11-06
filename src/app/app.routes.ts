@@ -8,6 +8,7 @@ import { CrearEmpleadoComponent } from './components/crear-empleado/crear-emplea
 
 import { CancelReservationComponent } from './components/cancel-reservation/cancel-reservation.component';
 import { ClientListComponent } from './components/client-list/client-list.component';
+import { TareasHorariosComponent } from './components/tareas-horarios/tareas-horarios.component';
 
 
 export const routes: Routes = [
@@ -28,6 +29,11 @@ export const routes: Routes = [
   {
     path: 'home/clientes', 
     component: ClientListComponent, 
+    canActivate: [authGuard]
+  },
+  {
+    path: 'tareas-horarios',
+    component: TareasHorariosComponent,
     canActivate: [authGuard]
   }
 ];

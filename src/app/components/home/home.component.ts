@@ -28,4 +28,8 @@ export class HomeComponent {
   goToClientes() {
     this.router.navigate(['/home/clientes']);
   } 
+
+  goToTareasHorarios(): void {
+    this.router.navigate(['/tareas-horarios']);
+  }
 }
