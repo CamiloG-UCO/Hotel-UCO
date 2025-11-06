@@ -1,0 +1,135 @@
+<div class="actualizar-empleado-container">
+  <h2>Actualizar empleado</h2>
+
+  <!-- Sección de búsqueda -->
+  <div class="busqueda-section">
+    <h3>Buscar empleado</h3>
+
+    <div class="busqueda-opciones">
+      <label>
+        <input
+          type="radio"
+          name="buscarPor"
+          [(ngModel)]="buscarPor"
+          value="id"
+          (change)="limpiarBusqueda()"
+        />
+        Buscar por ID
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="buscarPor"
+          [(ngModel)]="buscarPor"
+          value="code"
+          (change)="limpiarBusqueda()"
+        />
+        Buscar por Código
+      </label>
+    </div>
+
+    <div class="busqueda-input-group">
+      <input
+        type="text"
+        [(ngModel)]="criterioBusqueda"
+        [placeholder]="buscarPor === 'id' ? 'Ingrese el ID del empleado' : 'Ingrese el código del empleado'"
+        class="input-busqueda"
+      />
+      <button
+        class="btn-buscar"
+        (click)="buscarEmpleado()"
+        [disabled]="!criterioBusqueda.trim()"
+      >
+        🔍 Buscar
+      </button>
+    </div>
+  </div>
+
+  <!-- Formulario de actualización (solo visible cuando se encuentra un empleado) -->
+  <div *ngIf="empleadoEncontrado" class="empleado-form-section">
+    <h3>Datos del empleado</h3>
+
+    <div class="info-empleado">
+      <p><strong>Código:</strong> {{ empleadoEncontrado.code }}</p>
+      <p><strong>Email:</strong> {{ empleadoEncontrado.email }}</p>
+      <p><strong>Identificación:</strong> {{ empleadoEncontrado.identificationNumber }}</p>
+    </div>
+
+    <form class="empleado-form" #form="ngForm" (ngSubmit)="actualizarEmpleado(form)">
+
+      <!-- Nombre -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Nombre completo</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            [(ngModel)]="empleadoEncontrado.name"
+            required
+          />
+        </div>
+      </div>
+
+      <!-- Teléfono -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="contactNumber">Número de contacto</label>
+          <input
+            type="text"
+            id="contactNumber"
+            name="contactNumber"
+            [(ngModel)]="empleadoEncontrado.contactNumber"
+            required
+          />
+        </div>
+      </div>
+
+      <!-- Rol -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="role">Rol</label>
+          <select
+            id="role"
+            name="role"
+            [(ngModel)]="empleadoEncontrado.roles"
+            required
+          >
+            <option value="" disabled>Seleccione un rol</option>
+            <option *ngFor="let rol of roles" [value]="rol">{{ rol }}</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Salario -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="salary">Salario</label>
+          <input
+            type="number"
+            id="salary"
+            name="salary"
+            [(ngModel)]="empleadoEncontrado.salary"
+            required
+            placeholder="Ej: 1800000"
+          />
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="botones-accion">
+        <button class="btn-actualizar" type="submit" [disabled]="form.invalid">
+          Actualizar empleado
+        </button>
+        <button class="btn-cancelar" type="button" (click)="limpiarBusqueda()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Mensaje cuando no hay empleado seleccionado -->
+  <div *ngIf="!empleadoEncontrado" class="mensaje-vacio">
+    <p>👆 Busque un empleado por ID o código para comenzar</p>
+  </div>
+</div>
