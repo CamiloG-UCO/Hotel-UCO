@@ -25,7 +25,20 @@ export class HomeComponent {
   goToReservations(): void {
     this.router.navigate(['/reservations']);
   }
-  goToClientes() {
+
+  goToClientes(): void {
     this.router.navigate(['/home/clientes']);
+  }
+
+  goToInventario(): void {
+    this.router.navigate(['/inventario']);
+  }
+
+  goToProductos(): void {
+    this.router.navigate(['/productos']);
   } 
+
+  goToTareasHorarios(): void {
+    this.router.navigate(['/tareas-horarios']);
+  }
 }

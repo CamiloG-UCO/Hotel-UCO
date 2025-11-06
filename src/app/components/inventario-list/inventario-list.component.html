@@ -1,0 +1,158 @@
+<div class="header-container">
+  <h2 class="title">Gestión de Inventario</h2>
+
+  <div class="header-buttons">
+    <button (click)="goToProductos()" class="btn-productos">
+      📦 Gestionar Productos
+    </button>
+    <button (click)="goHome()" class="btn-back">
+      ← Volver al Home
+    </button>
+  </div>
+</div>
+
+<section class="list-section card">
+  <div class="header-actions">
+    <h3 class="section-title">Lista de Inventario</h3>
+    <div class="btn-group">
+      <button class="btn-refresh" (click)="loadAllInventarios()">🔄 Ver todos</button>
+      <button class="btn-warning" (click)="loadBajoStock()">⚠️ Bajo Stock</button>
+    </div>
+  </div>
+
+  <ul class="inventario-list" *ngIf="!showBajoStock && inventarios.length > 0">
+    <li *ngFor="let inv of inventarios"
+        class="inventario-item"
+        [ngClass]="getStockStatus(inv)"
+        (click)="selectInventario(inv)">
+      <div class="inventario-info">
+        <strong class="producto-nombre">{{ inv.producto.nombre }}</strong>
+        <span class="codigo">Código: {{ inv.producto.codigo }}</span>
+        <span class="ubicacion">📍 {{ inv.ubicacion }}</span>
+        <div class="stock-info">
+          <span class="cantidad">Stock: {{ inv.cantidad }} {{ inv.producto.unidad }}</span>
+          <span class="stock-minimo">Mínimo: {{ inv.stockMinimo }}</span>
+        </div>
+        <span class="categoria">Categoría: {{ inv.producto.categoria }}</span>
+        <span class="ultima-actualizacion">Actualizado: {{ inv.ultimaActualizacion | date: 'short' }}</span>
+      </div>
+    </li>
+  </ul>
+
+  <ul class="inventario-list" *ngIf="showBajoStock && inventariosBajoStock.length > 0">
+    <li *ngFor="let inv of inventariosBajoStock"
+        class="inventario-item bajo-stock"
+        (click)="selectInventario(inv)">
+      <div class="inventario-info">
+        <strong class="producto-nombre">{{ inv.producto.nombre }}</strong>
+        <span class="codigo">Código: {{ inv.producto.codigo }}</span>
+        <span class="ubicacion">📍 {{ inv.ubicacion }}</span>
+        <div class="stock-info">
+          <span class="cantidad alerta">Stock: {{ inv.cantidad }} {{ inv.producto.unidad }}</span>
+          <span class="stock-minimo">Mínimo: {{ inv.stockMinimo }}</span>
+        </div>
+        <span class="categoria">Categoría: {{ inv.producto.categoria }}</span>
+      </div>
+    </li>
+  </ul>
+
+  <div *ngIf="inventarios.length === 0 && !showBajoStock" class="empty-message">
+    No hay productos en inventario
+  </div>
+
+  <div *ngIf="inventariosBajoStock.length === 0 && showBajoStock" class="empty-message success">
+    ✓ No hay productos con bajo stock
+  </div>
+</section>
+
+<section class="form-section card">
+  <h3 class="section-title">Registrar Producto en Inventario</h3>
+
+  <div class="form-group">
+    <label>Producto:</label>
+    <select [(ngModel)]="registroForm.productoId" class="form-input">
+      <option value="0">Seleccione un producto</option>
+      <option *ngFor="let producto of productos" [value]="producto.id">
+        {{ producto.nombre }} ({{ producto.codigo }})
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Cantidad:</label>
+    <input type="number" [(ngModel)]="registroForm.cantidad" placeholder="Cantidad inicial" class="form-input">
+  </div>
+
+  <div class="form-group">
+    <label>Ubicación:</label>
+    <input type="text" [(ngModel)]="registroForm.ubicacion" placeholder="Ej: Almacén, H-456" class="form-input">
+  </div>
+
+  <button (click)="registrarProducto()" class="btn-primary">
+    ➕ Registrar en Inventario
+  </button>
+</section>
+
+<section class="form-section card">
+  <h3 class="section-title">Actualizar Stock</h3>
+
+  <div class="form-group">
+    <label>Producto:</label>
+    <select [(ngModel)]="actualizacionForm.productoId" class="form-input">
+      <option value="0">Seleccione un producto</option>
+      <option *ngFor="let producto of productos" [value]="producto.id">
+        {{ producto.nombre }} ({{ producto.codigo }})
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Ubicación:</label>
+    <input type="text" [(ngModel)]="actualizacionForm.ubicacion" placeholder="Ej: Almacén" class="form-input">
+  </div>
+
+  <div class="form-group">
+    <label>Nueva Cantidad:</label>
+    <input type="number" [(ngModel)]="actualizacionForm.cantidadNueva" placeholder="Nueva cantidad" class="form-input">
+  </div>
+
+  <button (click)="actualizarStock()" class="btn-update">
+    🔄 Actualizar Stock
+  </button>
+</section>
+
+<div *ngIf="selectedInventario" class="card selected-card">
+  <h4>Inventario Seleccionado</h4>
+  <div class="detail-grid">
+    <div class="detail-item">
+      <strong>Producto:</strong> {{ selectedInventario.producto.nombre }}
+    </div>
+    <div class="detail-item">
+      <strong>Código:</strong> {{ selectedInventario.producto.codigo }}
+    </div>
+    <div class="detail-item">
+      <strong>Categoría:</strong> {{ selectedInventario.producto.categoria }}
+    </div>
+    <div class="detail-item">
+      <strong>Tipo:</strong> {{ selectedInventario.producto.tipo }}
+    </div>
+    <div class="detail-item">
+      <strong>Hotel:</strong> {{ selectedInventario.hotel }}
+    </div>
+    <div class="detail-item">
+      <strong>Ubicación:</strong> {{ selectedInventario.ubicacion }}
+    </div>
+    <div class="detail-item">
+      <strong>Cantidad:</strong> {{ selectedInventario.cantidad }} {{ selectedInventario.producto.unidad }}
+    </div>
+    <div class="detail-item">
+      <strong>Stock Mínimo:</strong> {{ selectedInventario.stockMinimo }}
+    </div>
+    <div class="detail-item">
+      <strong>Barcode:</strong> {{ selectedInventario.producto.barcode }}
+    </div>
+    <div class="detail-item">
+      <strong>Última Actualización:</strong> {{ selectedInventario.ultimaActualizacion | date: 'medium' }}
+    </div>
+  </div>
+</div>
