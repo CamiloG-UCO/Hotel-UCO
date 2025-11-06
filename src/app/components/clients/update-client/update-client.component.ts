@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, ɵInternalFormsSharedModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UpdateclientService } from '../../services/clientes/updateclient.service';
-import { ClientService } from '../../services/client.service';
+import { UpdateclientService } from '../../../services/clientes/updateclient.service';
+import { ClientService } from '../../../services/client.service';
 
 @Component({
   selector: 'app-update-client',

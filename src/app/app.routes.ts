@@ -18,11 +18,10 @@ import { TareasHorariosComponent } from './components/tareas-horarios/tareas-hor
 import { ConsultarEmpleadoComponent } from './components/consultar-empleado/consultar-empleado.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
 import { ClientCreateComponent } from './components/clients/client-create/client-create.component';
+import { UpdateClientComponent } from './components/clients/update-client/update-client.component';
 import { ActualizarHotelComponent } from './components/configuracion/hotel/actualizar-hotel/actualizar-hotel.component';
 import { VerHotelComponent } from './components/configuracion/hotel/ver-hotel/ver-hotel.component';
 import { HabitacionListComponent } from './components/configuracion/habitacion/habitacion-list/habitacion-list.component';
-
-import { UpdateClientComponent } from './components/clients/update-client/update-client.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
