@@ -1,0 +1,14 @@
+<div class="header-container">
+  <h2 class="title">Registrar Nuevo Cliente</h2>
+
+  <div class="header-buttons">
+    <button class="btn-back" routerLink="/home/clientes">
+      ← Volver a la Lista
+    </button>
+  </div>
+</div>
+
+<section class="card create-card">
+  <h3 class="section-title">Información del Cliente</h3>
+  <app-client-form (created)="onCreated()" (cancel)="onCancel()"></app-client-form>
+</section>

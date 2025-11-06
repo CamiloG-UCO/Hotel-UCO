@@ -8,12 +8,13 @@ import { CrearEmpleadoComponent } from './components/crear-empleado/crear-emplea
 import { EliminarEmpleadoComponent } from './components/eliminar-empleado/eliminar-empleado.component';
 
 import { CancelReservationComponent } from './components/cancel-reservation/cancel-reservation.component';
-import { ClientListComponent } from './components/client-list/client-list.component';
+import { ClientListComponent } from './components/clients/client-list/client-list.component';
 import { InventarioListComponent } from './components/inventario-list/inventario-list.component';
 import { ProductosComponent } from './components/productos/productos.component';
 import { TareasHorariosComponent } from './components/tareas-horarios/tareas-horarios.component';
 import { ConsultarEmpleadoComponent } from './components/consultar-empleado/consultar-empleado.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
+import { ClientCreateComponent } from './components/clients/client-create/client-create.component';
 import { UpdateClientComponent } from './components/update-client/update-client.component';
 
 export const routes: Routes = [
@@ -60,7 +61,11 @@ export const routes: Routes = [
 
   { path: 'consultar-empleado',
      component: ConsultarEmpleadoComponent, canActivate: [authGuard] },
-  { path: 'reservations', component: ReservationsComponent }
+  { path: 'reservations', component: ReservationsComponent },
+
+  { path: 'clients/create',
+     component: ClientCreateComponent,
+     canActivate: [authGuard] },
 ];
 
 
