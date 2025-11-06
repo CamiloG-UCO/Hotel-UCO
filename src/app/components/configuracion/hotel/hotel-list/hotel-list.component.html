@@ -5,6 +5,7 @@
 
     <div class="nav-right">
         <button (click)="goToCreateHotel()" class="config-button-menu">Registrar Hotel</button>
+        <button (click)="goToHome()" class="config-button-menu">Home</button>
         <button (click)="logout()" class="config-button-menu">Cerrar sesión</button>
     </div>
 </nav>
@@ -31,7 +32,8 @@
                         <th>Ciudad</th>
                         <th>Departamento</th>
                         <th>País</th>
-                        <th>telefono</th>
+                        <th>Telefono</th>
+                        <th>Descripcion</th>
                         <th>Opciones</th>
                     </tr>
                 </thead>
@@ -43,12 +45,10 @@
                         <td>{{hotel?.departamento}}</td>
                         <td>{{hotel?.pais}}</td>
                         <td>{{hotel?.telefono}}</td>
+                        <td>{{hotel?.descripcion}}</td>
                         <td class="opciones">
                                 <button (click)="goToEditHotel(hotel)" class="btn-action btn-edit">
                                     Editar
-                                </button>
-                                <button (click)="goToViewHotel()" class="btn-action btn-view">
-                                    Ver
                                 </button>
 
                         </td>

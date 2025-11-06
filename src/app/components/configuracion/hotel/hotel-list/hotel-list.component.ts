@@ -28,6 +28,10 @@ export class HotelListComponent {
     this.getHotels();
   }
 
+  goToHome(){
+    this.router.navigate(["/home"]);
+  }
+
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);

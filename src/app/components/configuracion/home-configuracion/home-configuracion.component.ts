@@ -23,4 +23,8 @@ export class HomeConfiguracionComponent {
     this.router.navigate(['/hotel/list']);
   } 
 
+  goToHome(){
+    this.router.navigate(["/home"]);
+  }
+
 }
