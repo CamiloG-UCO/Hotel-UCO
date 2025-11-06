@@ -122,7 +122,7 @@ tbody tr {
   transition: background-color 0.2s ease;
 
   &:nth-of-type(even) {
-    background-color: lighten($primary-dark, 78%);
+    background-color: lighten(white, 10%);
     &:hover {
        background-color: lighten($accent, 40%);
     }
@@ -167,5 +167,12 @@ td:last-child {
   color: white;
   &:hover {
       background-color: darken(#e74c3c, 10%);
+  }
+}
+.btn-view {
+  background-color: #3498db; // Un azul estándar para "Ver"
+  color: white;
+  &:hover {
+    background-color: darken(#3498db, 10%);
   }
 }

@@ -16,4 +16,19 @@ export class hotelService {
     return this.http.get<Hotel[]>(`${this.apiUrl}/all`);
   }
 
+  getHotelById(id: string): Observable<Hotel> {
+    return this.http.get<Hotel>(`${this.apiUrl}/${id}`); 
+  }
+
+    getHotelByCodigo(codigo: string): Observable<Hotel> {
+    return this.http.get<Hotel>(`${this.apiUrl}/HC/${codigo}`); 
+  }
+  updateHotel(hotelId: string, hotel: Hotel): Observable<any> {
+    
+    return this.http.put(`${this.apiUrl}/${hotelId}`, hotel, { 
+      responseType: 'text' 
+    });
+
+  }
+
 }

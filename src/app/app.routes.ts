@@ -15,6 +15,8 @@ import { InventarioListComponent } from './components/inventario-list/inventario
 import { ProductosComponent } from './components/productos/productos.component';
 import { TareasHorariosComponent } from './components/tareas-horarios/tareas-horarios.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
+import { ActualizarHotelComponent } from './components/configuracion/hotel/actualizar-hotel/actualizar-hotel.component';
+import { VerHotelComponent } from './components/configuracion/hotel/ver-hotel/ver-hotel.component';
 
 
 export const routes: Routes = [
@@ -30,6 +32,8 @@ export const routes: Routes = [
   { path: 'config', component: HomeConfiguracionComponent, canActivate: [authGuard]},
   { path: 'hotel/list', component: HotelListComponent, canActivate: [authGuard]},
   { path: 'hotel/new', component: CrearHotelComponent, canActivate: [authGuard]},
+  { path: 'hotel/edit/:id', component: ActualizarHotelComponent, canActivate: [authGuard]},
+  { path: 'hotel/view', component: VerHotelComponent, canActivate: [authGuard]},
   { 
     path: 'home', 
     component: HomeComponent, 

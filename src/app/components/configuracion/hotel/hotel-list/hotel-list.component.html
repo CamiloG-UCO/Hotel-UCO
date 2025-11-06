@@ -13,8 +13,12 @@
     <div class="card-body">
         <div class="top-box">
             <nav class="search-box">
-                <input type="search" class="search-box" placeholder="Buscar">
-                <button class="button-search">Buscar</button>
+                <input type.="search" 
+                   class="search-box" 
+                   placeholder="Buscar por código de hotel"
+                   [(ngModel)]="terminoBusqueda"
+                   (keyup.enter)="buscarHotel()">
+                <button class="button-search" (click)="buscarHotel()">Buscar</button>
             </nav>
 
         </div>
@@ -26,6 +30,8 @@
                         <th>Nombre</th>
                         <th>Ciudad</th>
                         <th>Departamento</th>
+                        <th>País</th>
+                        <th>telefono</th>
                         <th>Opciones</th>
                     </tr>
                 </thead>
@@ -35,7 +41,17 @@
                         <td>{{hotel?.nombre}}</td>
                         <td>{{hotel?.ciudad}}</td>
                         <td>{{hotel?.departamento}}</td>
-                        <td>hola mundo</td>
+                        <td>{{hotel?.pais}}</td>
+                        <td>{{hotel?.telefono}}</td>
+                        <td class="opciones">
+                                <button (click)="goToEditHotel(hotel)" class="btn-action btn-edit">
+                                    Editar
+                                </button>
+                                <button (click)="goToViewHotel()" class="btn-action btn-view">
+                                    Ver
+                                </button>
+
+                        </td>
                     </tr>
                 </tbody>
 
