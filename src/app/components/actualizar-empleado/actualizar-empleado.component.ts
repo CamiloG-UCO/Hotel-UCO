@@ -17,7 +17,7 @@ export class ActualizarEmpleadoComponent implements OnInit {
   buscarPor: 'id' | 'code' = 'id';
   criterioBusqueda: string = '';
 
-  // Token de autorización (deberías obtenerlo de tu servicio de autenticación)
+  // Token de autorización
   token: string = '';
 
   constructor(private actualizarEmpleadoService: ActualizarEmpleadoService) {}

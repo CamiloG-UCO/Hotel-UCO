@@ -30,7 +30,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'RegistrarEmpleado', component: CrearEmpleadoComponent },
   { path: 'EliminarEmpleado', component:EliminarEmpleadoComponent},
-  { path: 'ActualizarEmpleado', component: ActualizarEmpleadoComponent, canActivate: [authGuard] },
+  { path: 'ActualizarEmpleado', component: ActualizarEmpleadoComponent},
 
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
