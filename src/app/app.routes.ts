@@ -19,6 +19,7 @@ import { ConsultarEmpleadoComponent } from './components/consultar-empleado/cons
 import { ReservationsComponent } from './components/reservations/reservations.component';
 import { ActualizarHotelComponent } from './components/configuracion/hotel/actualizar-hotel/actualizar-hotel.component';
 import { VerHotelComponent } from './components/configuracion/hotel/ver-hotel/ver-hotel.component';
+import { HabitacionListComponent } from './components/configuracion/habitacion/habitacion-list/habitacion-list.component';
 
 import { UpdateClientComponent } from './components/update-client/update-client.component';
 
@@ -34,6 +35,7 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
   { path: 'cancelarreservas', component: CancelReservationComponent, canActivate: [authGuard] },
   { path: 'config', component: HomeConfiguracionComponent, canActivate: [authGuard]},
+  { path: 'config/habitaciones', component: HabitacionListComponent, canActivate: [authGuard]},
   { path: 'hotel/list', component: HotelListComponent, canActivate: [authGuard]},
   { path: 'hotel/new', component: CrearHotelComponent, canActivate: [authGuard]},
   { path: 'hotel/edit/:id', component: ActualizarHotelComponent, canActivate: [authGuard]},

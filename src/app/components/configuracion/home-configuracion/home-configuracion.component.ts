@@ -19,6 +19,10 @@ export class HomeConfiguracionComponent {
     this.router.navigate(['/login']);
   }
 
+  goToHabitaciones() {
+    this.router.navigate(['/config/habitaciones']);
+  }
+
   goToHotelList() {
     this.router.navigate(['/hotel/list']);
   } 
