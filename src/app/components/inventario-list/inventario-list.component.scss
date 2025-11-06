@@ -1,0 +1,303 @@
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+}
+
+.btn-back {
+  background: #6c63ff;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.btn-back:hover {
+  background: #554fd3;
+}
+
+.btn-productos {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.btn-productos:hover {
+  background: #ee5a52;
+}
+
+.card {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  margin-bottom: 25px;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-refresh {
+  background: #4a90e2;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-refresh:hover {
+  background: #357ab7;
+}
+
+.btn-warning {
+  background: #ff9800;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-warning:hover {
+  background: #e68900;
+}
+
+/* Lista de inventario */
+.inventario-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.inventario-item {
+  background: #f9f9ff;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border-left: 5px solid #6c63ff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.inventario-item:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  transform: translateX(2px);
+}
+
+.inventario-item.bajo-stock {
+  border-left-color: #f44336;
+  background: #ffebee;
+}
+
+.inventario-item.medio-stock {
+  border-left-color: #ff9800;
+  background: #fff3e0;
+}
+
+.inventario-item.buen-stock {
+  border-left-color: #4caf50;
+  background: #f1f8f4;
+}
+
+.inventario-info span {
+  display: block;
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 4px;
+}
+
+.producto-nombre {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.codigo {
+  font-size: 13px;
+  color: #666;
+  font-family: monospace;
+}
+
+.ubicacion {
+  color: #6c63ff;
+  font-weight: 500;
+}
+
+.stock-info {
+  display: flex;
+  gap: 15px;
+  margin-top: 8px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+}
+
+.cantidad {
+  font-weight: bold;
+  color: #4caf50;
+}
+
+.cantidad.alerta {
+  color: #f44336;
+}
+
+.stock-minimo {
+  color: #666;
+}
+
+.categoria {
+  color: #555;
+  font-style: italic;
+}
+
+.ultima-actualizacion {
+  font-size: 12px;
+  color: #999;
+}
+
+/* Formularios */
+.form-section {
+  margin-bottom: 25px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+}
+
+.btn-primary {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background: #45a049;
+}
+
+.btn-update {
+  background: #2196f3;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s;
+  width: 100%;
+}
+
+.btn-update:hover {
+  background: #0b7dda;
+}
+
+/* Tarjeta de selección */
+.selected-card {
+  border-left: 6px solid #6c63ff;
+  background: #f9f9ff;
+}
+
+.selected-card h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #6c63ff;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+}
+
+.detail-item {
+  padding: 8px;
+  background: white;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.detail-item strong {
+  color: #666;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Mensajes vacíos */
+.empty-message {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+  font-size: 16px;
+}
+
+.empty-message.success {
+  color: #4caf50;
+}

@@ -25,7 +25,16 @@ export class HomeComponent {
   goToCancelReservation(): void {
     this.router.navigate(['/cancelarreservas']);
   }
-  goToClientes() {
+
+  goToClientes(): void {
     this.router.navigate(['/home/clientes']);
+  }
+
+  goToInventario(): void {
+    this.router.navigate(['/inventario']);
+  }
+
+  goToProductos(): void {
+    this.router.navigate(['/productos']);
   } 
 }
