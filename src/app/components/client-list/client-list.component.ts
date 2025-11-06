@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common'; // ✅ Import necesario para *ng
 import { HttpClientModule } from '@angular/common/http';
 import { ClientService } from '../../services/client.service';
 import { Client } from '../../models/client.model';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-client-list',
   standalone: true, // Componente independiente
-  imports: [CommonModule, HttpClientModule], // ✅ Aquí agregamos CommonModule
+  imports: [CommonModule, HttpClientModule, RouterLink], // ✅ Aquí agregamos CommonModule
   styleUrls: ['./client-list.component.scss'],
   templateUrl: './client-list.component.html',
 })
@@ -63,4 +63,11 @@ export class ClientListComponent implements OnInit {
       }
     });
   }
+
+editClient(client: Client): void {
+  this.clientService.setSelectedClient(client);
+  this.router.navigate(['/home/clientes/update']);
+
+}
+
 }

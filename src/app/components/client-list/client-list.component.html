@@ -19,6 +19,9 @@
         <span>{{ client.documentType }} {{ client.documentNumber }}</span>
         <span>{{ client.email }}</span>
         <span>{{ client.phone }}</span>
+        <button class="update-button" (click)="editClient(client)">
+            Actualizar
+        </button>
       </div>
     </li>
   </ul>
