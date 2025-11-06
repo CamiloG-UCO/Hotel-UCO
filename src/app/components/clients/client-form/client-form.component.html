@@ -1,0 +1,101 @@
+<form class="client-form" [formGroup]="form" (ngSubmit)="save()">
+    <div *ngIf="submitted && form.invalid" class="alert alert-danger">
+        Por favor completa los campos obligatorios.
+    </div>
+
+    <div *ngIf="successMsg" class="alert alert-success">
+        {{ successMsg }}
+    </div>
+
+    <div class="form-grid">
+    <!-- Tipo documento -->
+    <div class="form-group">
+      <label for="documentType">Tipo de documento</label>
+      <select id="documentType"
+              formControlName="documentType"
+              class="form-control"
+              [class.is-invalid]="hasErr('documentType','required')"
+              [attr.aria-invalid]="hasErr('documentType','required') ? 'true' : null">
+        <option *ngFor="let t of documentTypes" [value]="t">{{ t }}</option>
+      </select>
+      <small *ngIf="hasErr('documentType','required')" class="field-error">Campo obligatorio.</small>
+    </div>
+
+    <!-- Número documento -->
+    <div class="form-group">
+      <label for="documentNumber">Número de documento</label>
+      <input id="documentNumber"
+             type="text"
+             formControlName="documentNumber"
+             class="form-control"
+             [class.is-invalid]="hasErr('documentNumber','required') || hasErr('documentNumber','pattern')"
+             [attr.aria-invalid]="(hasErr('documentNumber','required') || hasErr('documentNumber','pattern')) ? 'true' : null"
+             placeholder="Ej: 12345678">
+      <small *ngIf="hasErr('documentNumber','required')" class="field-error">Campo obligatorio.</small>
+      <small *ngIf="hasErr('documentNumber','pattern')" class="field-error">Solo números.</small>
+    </div>
+
+    <!-- Nombres -->
+    <div class="form-group">
+      <label for="name">Nombres</label>
+      <input id="name"
+             type="text"
+             formControlName="name"
+             class="form-control"
+             [class.is-invalid]="hasErr('name','required')"
+             [attr.aria-invalid]="hasErr('name','required') ? 'true' : null"
+             placeholder="Ej: Andrés">
+      <small *ngIf="hasErr('name','required')" class="field-error">Campo obligatorio.</small>
+    </div>
+
+    <!-- Apellidos -->
+    <div class="form-group">
+      <label for="lastNames">Apellidos</label>
+      <input id="lastNames"
+             type="text"
+             formControlName="lastNames"
+             class="form-control"
+             [class.is-invalid]="hasErr('lastNames','required')"
+             [attr.aria-invalid]="hasErr('lastNames','required') ? 'true' : null"
+             placeholder="Ej: Ramírez López">
+      <small *ngIf="hasErr('lastNames','required')" class="field-error">Campo obligatorio.</small>
+    </div>
+
+    <!-- Correo electrónico -->
+    <div class="form-group">
+      <label for="email">Correo electrónico</label>
+      <input id="email"
+             type="email"
+             formControlName="email"
+             class="form-control"
+             [class.is-invalid]="hasErr('email','required') || hasErr('email','email')"
+             [attr.aria-invalid]="(hasErr('email','required') || hasErr('email','email')) ? 'true' : null"
+             placeholder="correo@ejemplo.com">
+      <small *ngIf="hasErr('email','required')" class="field-error">Campo obligatorio.</small>
+      <small *ngIf="hasErr('email','email')" class="field-error">Formato de correo inválido.</small>
+    </div>
+
+    <!-- Teléfono -->
+    <div class="form-group">
+      <label for="phone">Teléfono</label>
+      <input id="phone"
+             type="text"
+             formControlName="phone"
+             class="form-control"
+             [class.is-invalid]="hasErr('phone','required') || hasErr('phone','pattern')"
+             [attr.aria-invalid]="(hasErr('phone','required') || hasErr('phone','pattern')) ? 'true' : null"
+             placeholder="Ej: 3104567890">
+      <small *ngIf="hasErr('phone','required')" class="field-error">Campo obligatorio.</small>
+      <small *ngIf="hasErr('phone','pattern')" class="field-error">Solo números.</small>
+    </div>
+  </div>
+
+  <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+
+  <div class="form-actions">
+    
+    <button type="submit" class="btn-save" [disabled]="loading || form.invalid">
+      {{ loading ? 'Guardando…' : 'Guardar' }}
+    </button>
+  </div>
+</form>

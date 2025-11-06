@@ -127,3 +127,24 @@
     background-color: rgba(19, 95, 0, 0.15);
   }
 }
+
+.header-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Botón "Registrar cliente" */
+.btn-create {
+  background: #00b894;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.btn-create:hover {
+  background: #009874;
+}
