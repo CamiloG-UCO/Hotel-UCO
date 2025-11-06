@@ -40,9 +40,9 @@ export class CrearHotelComponent {
     this.successMessage = '';
 
     this.hotelService.createHotel(this.hotel).subscribe({
-      next: (response) => {
+      next: (response: string) => {
         console.log('✅ Respuesta exitosa del backend:', response);
-        this.successMessage = 'Hotel creado exitosamente';
+        this.successMessage = response;
         this.isSubmitting = false;
         
         // Redirigir después de 2 segundos
@@ -52,20 +52,20 @@ export class CrearHotelComponent {
         }, 2000);
       },
       error: (error) => {
-        this.errorMessage = 'Error al crear el hotel. Por favor intente nuevamente.';
-        this.isSubmitting = false;
-        console.error('Error:', error);
-        // Manejo de diferentes tipos de errores
-        if (error.status === 400) {
-          this.errorMessage = 'Datos inválidos. Verifique los campos del formulario.';
-        } else if (error.status === 409) {
-          this.errorMessage = 'Ya existe un hotel con estos datos.';
-        } else if (error.status === 500) {
-          this.errorMessage = 'Error en el servidor. Intente nuevamente más tarde.';
-        } else if (error.status === 0) {
-          this.errorMessage = 'No se pudo conectar con el servidor. Verifique que el backend esté corriendo.';
-        } else {
-          this.errorMessage = error.error || 'Error al crear el hotel. Por favor intente nuevamente.';
+        console.error('❌ Error del backend:', error);
+
+        // Mostrar el mensaje que envíe el backend
+        if (typeof error.error === 'string') {
+          this.errorMessage = error.error;
+        } 
+        else if (error.error?.message) {
+          this.errorMessage = error.error.message;
+        } 
+        else if (error.status === 0) {
+          this.errorMessage = 'No se pudo conectar con el servidor.';
+        } 
+        else {
+          this.errorMessage = 'Error al crear el hotel. Intente nuevamente.';
         }
 
         this.isSubmitting = false;
