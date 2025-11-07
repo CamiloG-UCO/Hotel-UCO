@@ -38,15 +38,17 @@ export class CrearEmpleadoService {
     return of(roles);
   }
 
-  /** Hoteles disponibles */
+  /** Hoteles disponibles (solo nombres desde la API) */
   consultarHoteles(): Observable<string[]> {
-    const hoteles = [
-      'Santa Marta Resort',
-      'Hotel Caribe Deluxe',
-      'Hotel Andino Plaza',
-      'Medellín Sky Suites'
-    ];
-    return of(hoteles);
+    const url = 'http://localhost:8081/api/v1/hotel/all';
+    return this.http.get<any[]>(url).pipe(
+      map(hoteles =>
+        (hoteles || [])
+          .map(h => h?.nombre)
+          .filter((n: any): n is string => typeof n === 'string' && n.trim().length > 0)
+      ),
+      catchError(this.handleError)
+    );
   }
 
   /** Manejo de errores HTTP */

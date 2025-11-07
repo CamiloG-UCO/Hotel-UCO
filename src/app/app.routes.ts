@@ -13,13 +13,13 @@ import { ClientListComponent } from './components/client-list/client-list.compon
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'RegistrarEmpleado', component: CrearEmpleadoComponent },
-
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
   //Rutas privadas!!!!
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
   { path: 'cancelarreservas', component: CancelReservationComponent, canActivate: [authGuard] },
+    { path: 'RegistrarEmpleado', component: CrearEmpleadoComponent,  canActivate: [authGuard] },
+
   { 
     path: 'home', 
     component: HomeComponent, 
