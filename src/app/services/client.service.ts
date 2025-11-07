@@ -9,7 +9,11 @@ import { Client } from '../models/client.model';
 export class ClientService {
   private readonly apiUrl = 'http://localhost:8080/api/clientes';
 
-  constructor(private readonly http: HttpClient) {}
+  private selectedClient: any = null;
+
+
+
+  constructor(private readonly http: HttpClient) { }
 
   findAll(): Observable<Client[]> {
     return this.http.get<Client[]>(this.apiUrl);
@@ -43,5 +47,13 @@ export class ClientService {
   existsByPhone(phone: string): Observable<boolean> {
     const params = new HttpParams().set('phone', phone);
     return this.http.get<boolean>(`${this.apiUrl}/exists/phone`, { params });
+  }
+
+  setSelectedClient(client: any): void {
+    this.selectedClient = client;
+  }
+
+  getSelectedClient(): any {
+    return this.selectedClient;
   }
 }

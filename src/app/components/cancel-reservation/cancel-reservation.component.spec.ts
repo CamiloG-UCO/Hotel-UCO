@@ -2,13 +2,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CookieService } from 'ngx-cookie-service';
 import { CancelReservationComponent } from './cancel-reservation.component';
-import { CancelReservationService } from '../../services/reservation/cancel-reservation/cancel-reservation.service';
+import { ReservationService } from '../../services/reservation/cancel-reservation/reservation.service';
 import { of, throwError } from 'rxjs';
 
 describe('CancelReservationComponent', () => {
   let component: CancelReservationComponent;
   let fixture: ComponentFixture<CancelReservationComponent>;
-  let cancelReservationService: jasmine.SpyObj<CancelReservationService>;
+  let cancelReservationService: jasmine.SpyObj<ReservationService>;
   let cookieService: jasmine.SpyObj<CookieService>;
 
   beforeEach(async () => {
@@ -21,7 +21,7 @@ describe('CancelReservationComponent', () => {
     await TestBed.configureTestingModule({
       imports: [CancelReservationComponent, HttpClientTestingModule],
       providers: [
-        { provide: CancelReservationService, useValue: cancelReservationServiceSpy },
+        { provide: ReservationService, useValue: cancelReservationServiceSpy },
         { provide: CookieService, useValue: cookieServiceSpy }
       ]
     })
@@ -29,7 +29,7 @@ describe('CancelReservationComponent', () => {
 
     fixture = TestBed.createComponent(CancelReservationComponent);
     component = fixture.componentInstance;
-    cancelReservationService = TestBed.inject(CancelReservationService) as jasmine.SpyObj<CancelReservationService>;
+    cancelReservationService = TestBed.inject(ReservationService) as jasmine.SpyObj<ReservationService>;
     cookieService = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
     fixture.detectChanges();
   });

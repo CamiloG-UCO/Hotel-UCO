@@ -1,0 +1,63 @@
+<div class="header-container">
+  <h2 class="title">Gestión de Clientes</h2>
+
+  <div class="header-buttons">
+    <!-- Botón para crear cliente -->
+    <button class="btn-create" routerLink="/clients/create">
+      ＋ Registrar cliente
+    </button>
+
+    <!-- Botón para volver -->
+    <button (click)="goHome()" class="btn-back">
+      ← Volver al Home
+    </button>
+  </div>
+</div>
+
+<section class="list-section card">
+  <div class="header-actions">
+    <h3 class="section-title">Lista de Clientes</h3>
+    <button class="btn-refresh" (click)="loadAllClients()">🔄 Ver todos</button>
+  </div>
+
+  <ul class="client-list">
+    <li *ngFor="let client of clients" class="client-item">
+      <div class="client-info">
+        <strong class="client-name">{{ client.name }} {{ client.lastNames }}</strong>
+        <span>{{ client.documentType }} {{ client.documentNumber }}</span>
+        <span>{{ client.email }}</span>
+        <span>{{ client.phone }}</span>
+        <button class="update-button" (click)="editClient(client)">
+            Actualizar
+        </button>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<section class="search-section card">
+  <h3 class="section-title">Buscar Cliente</h3>
+
+  <div class="search-group">
+    <input #doc type="text" placeholder="Documento" class="small-input">
+    <button class="btn-search" (click)="getClientByDocument(doc.value)">Buscar</button>
+  </div>
+
+  <div class="search-group">
+    <input #email type="text" placeholder="Email" class="small-input">
+    <button class="btn-search" (click)="getClientByEmail(email.value)">Buscar</button>
+  </div>
+
+  <div class="search-group">
+    <input #phone type="text" placeholder="Teléfono" class="small-input">
+    <button class="btn-search" (click)="getClientByPhone(phone.value)">Buscar</button>
+  </div>
+</section>
+
+<div *ngIf="selectedClient" class="card selected-card">
+  <h4>Cliente Seleccionado</h4>
+  <p><strong>Nombre:</strong> {{ selectedClient.name }} {{ selectedClient.lastNames }}</p>
+  <p><strong>Documento:</strong> {{ selectedClient.documentType }} {{ selectedClient.documentNumber }}</p>
+  <p><strong>Email:</strong> {{ selectedClient.email }}</p>
+  <p><strong>Teléfono:</strong> {{ selectedClient.phone }}</p>
+</div>

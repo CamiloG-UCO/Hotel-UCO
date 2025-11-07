@@ -1,0 +1,26 @@
+$primary: #004d40;
+$primary-dark: #00352d;
+$accent: #d4af37;
+$text-dark: #212121;
+$text-light: #555555;
+
+#rsv-main {
+    padding: 16px;
+}
+
+#rsv-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.create-rsv-button {
+    background: none;
+    border: none;
+    color: $primary;
+    font-size: 16px;
+}
+
+.color-primary {
+    color: $primary;
+}

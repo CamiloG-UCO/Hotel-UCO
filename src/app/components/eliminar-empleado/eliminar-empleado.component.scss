@@ -1,0 +1,64 @@
+.eliminar-empleado-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #c0392b;
+  margin-bottom: 25px;
+}
+
+.buscar-form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.buscar-form input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.btn-buscar {
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-buscar:hover {
+  background-color: #1f6391;
+}
+
+.empleado-info {
+  margin-top: 25px;
+  background: #fdf1f1;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.btn-eliminar {
+  margin-top: 15px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-eliminar:hover {
+  background-color: #c0392b;
+}

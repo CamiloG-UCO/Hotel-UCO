@@ -1,0 +1,116 @@
+/* Recuadro general */
+.create-card {
+  max-width: 800px;
+  margin: 0 auto; /* centra horizontalmente */
+}
+
+/* Formulario */
+.client-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  width: 100%;
+}
+
+/* Grid de campos */
+.form-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Campos */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.form-control {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  transition: border-color 0.2s;
+}
+
+.form-control:focus {
+  border-color: #6c63ff;
+  outline: none;
+}
+
+/* Botones */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.btn-save {
+  background: #00b894;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.btn-save:hover {
+  background: #009874;
+}
+
+.btn-cancel {
+  background: #6c63ff;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.btn-cancel:hover {
+  background: #554fd3;
+}
+
+/* Mensaje de error */
+.alert-danger {
+  background: #ffecec;
+  color: #a33;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  border: 1px solid #f5b5b5;
+  text-align: center;
+  width: 100%;
+}
+
+.alert-success {
+  background: #e6fff3;
+  color: #008f5d;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  border: 1px solid #8de0c1;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Pequeña animación de aparición */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,28 @@
+<section class="page">
+  <header class="page__header">
+    <div class="page__header-info">
+      <h1>{{ selectedLabel() }}</h1>
+      <p>Selecciona la herramienta que necesites para gestionar tareas, limpieza, asistencia y turnos.</p>
+    </div>
+    <button type="button" class="page__back" (click)="goHome()">Regresar a inicio</button>
+  </header>
+
+  <nav class="page__actions">
+    <button
+      *ngFor="let option of options"
+      type="button"
+      class="page__button"
+      [class.page__button--active]="selectedView() === option.key"
+      (click)="select(option.key)"
+    >
+      {{ option.label }}
+    </button>
+  </nav>
+
+  <div class="page__content">
+    <app-task-management *ngIf="selectedView() === 'tasks'"></app-task-management>
+    <app-automatic-cleaning *ngIf="selectedView() === 'cleaning'"></app-automatic-cleaning>
+    <app-attendance-control *ngIf="selectedView() === 'attendance'"></app-attendance-control>
+    <app-shift-scheduler *ngIf="selectedView() === 'scheduler'"></app-shift-scheduler>
+  </div>
+</section>
