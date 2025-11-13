@@ -11,12 +11,12 @@ export class EliminarEmpleadoService {
 
   constructor(private http: HttpClient) {}
 
-  // Buscar por código de empleado (GET)
+  // Buscar por código (GET correcto)
   obtenerEmpleadoPorCodigo(code: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${code}`);
+    return this.http.get(`${this.baseUrl}/consultar/${code}`);
   }
 
-  // Eliminar por código (DELETE)
+  // Eliminar por código (DELETE correcto)
   eliminarEmpleado(code: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/codigo/${code}`);
   }
