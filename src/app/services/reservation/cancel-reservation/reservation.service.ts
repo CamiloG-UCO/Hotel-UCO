@@ -49,6 +49,10 @@ export class ReservationService {
     return this.http.post(`${this.apiUrl}/reservations`, data, { headers: this.getAuthHeaders() })
   }
 
+  checkIn(reservationId: string) {
+    return this.http.patch(`${this.apiUrl}/reservations/check-in/${reservationId}`, null, { headers: this.getAuthHeaders() });
+  }
+
   cancelBooking(userEmail: string, roomCode: string): Observable<string> {
     return this.http.delete(
       `${this.apiUrl}/rest/booking/client/${userEmail}/room/${roomCode}`,

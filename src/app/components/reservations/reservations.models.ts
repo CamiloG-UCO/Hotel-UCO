@@ -17,4 +17,5 @@ export interface ReservationResponse {
   totalAmount: number
   createdAt: string
   message: any
+  checkIn: string | undefined
 }

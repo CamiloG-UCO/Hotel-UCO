@@ -18,11 +18,11 @@ export class ReservationsComponent implements OnInit {
   protected loading = false;
   protected reservations: ReservationResponse[] = [];
 
-  constructor (
+  constructor(
     private readonly reservationService: ReservationService,
     private readonly router: Router,
     private readonly dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadReservations();
@@ -45,6 +45,14 @@ export class ReservationsComponent implements OnInit {
     })
   }
 
+  onCheckInReservation(reservationId: string) {
+    if (!reservationId) return;
+    this.reservationService.checkIn(reservationId).subscribe({
+      next: () => this.loadReservations(),
+      error: e => console.error(e),
+    })
+  }
+
   openCreateDialog() {
     const dialogRef = this.dialog.open(CreateReservationDialogComponent, {
       width: '400px'
@@ -57,6 +65,6 @@ export class ReservationsComponent implements OnInit {
           error: (e) => console.error(e)
         });
       }
-  });
-}
+    });
+  }
 }

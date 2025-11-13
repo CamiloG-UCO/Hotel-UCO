@@ -76,7 +76,7 @@ export const routes: Routes = [
 
   { path: 'consultar-empleado',
      component: ConsultarEmpleadoComponent, canActivate: [authGuard] },
-  { path: 'reservations', component: ReservationsComponent },
+  { path: 'reservations', component: ReservationsComponent, canActivate: [authGuard] },
 
   { path: 'clients/create',
      component: ClientCreateComponent,
