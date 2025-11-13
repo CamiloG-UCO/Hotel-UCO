@@ -1,3 +1,7 @@
+$bg-gradient: linear-gradient(135deg, #004d40 0%, #00695c 100%);
+$accent: #d4af37;
+$primary-dark: #00352d;
+
 /* ====== PALETA GLOBAL ====== */
 :root {
   --color-primary: #1f524a; /* Verde oscuro */
@@ -5,6 +9,37 @@
   --color-light: #ffffff;   /* Blanco */
   --color-text-dark: #333;
   --color-border: #ddd;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: $bg-gradient;
+  color: $accent;
+  padding: 0.1rem 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  font-family: 'Segoe UI', sans-serif;
+  gap: 10px;
+}
+
+.config-button-menu {
+  background-color: $accent;
+  border: none;
+  color: $primary-dark;
+  padding: 15px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+  flex: 1;
+
+  &:hover {
+    background-color: lighten($accent, 10%);
+    transform: translateY(-2px);
+  }
 }
 
 /* ====== CONTENEDOR GENERAL ====== */

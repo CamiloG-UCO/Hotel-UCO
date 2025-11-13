@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Hotel } from '../../../../services/configuracion/clases/Hotel';
 import { hotelService } from '../../../../services/configuracion/hotel/hotel.service';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-crear-hotel',
@@ -19,6 +20,7 @@ export class CrearHotelComponent {
   successMessage: string = '';
 
   constructor(
+    private authService: AuthService,
     private hotelService: hotelService,
     private router: Router
   ) {
@@ -108,6 +110,19 @@ export class CrearHotelComponent {
     this.hotel = new Hotel();
     this.errorMessage = '';
     this.successMessage = '';
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+
+  goToHome(){
+    this.router.navigate(["/home"]);
+  }
+
+  goToHotelList(){
+    this.router.navigate(["/hotel/list"]);
   }
 
 }
