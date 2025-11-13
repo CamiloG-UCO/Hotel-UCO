@@ -3,14 +3,14 @@
 
   <!-- Buscar empleado -->
   <form (ngSubmit)="buscarEmpleado()" class="buscar-form">
-    <label for="idEmpleado">ID o código del empleado</label>
+    <label for="codigoEmpleado">Código del empleado</label>
     <input
       type="text"
-      id="idEmpleado"
-      name="idEmpleado"
-      [(ngModel)]="idEmpleado"
+      id="codigoEmpleado"
+      name="codigoEmpleado"
+      [(ngModel)]="codigoEmpleado"
       required
-      placeholder="Ejemplo: EMP-1234 o UUID"
+      placeholder="Ejemplo: EMP-1234"
     />
     <button type="submit" class="btn-buscar" [disabled]="cargando">
       {{ cargando ? 'Buscando...' : 'Buscar' }}
@@ -20,10 +20,13 @@
   <!-- Información del empleado -->
   <div *ngIf="encontrado && empleado" class="empleado-info">
     <h3>Información del empleado</h3>
+
     <p><strong>Nombre:</strong> {{ empleado.name }}</p>
     <p><strong>Correo:</strong> {{ empleado.email }}</p>
+    <p><strong>Identificación:</strong> {{ empleado.identificationNumber }}</p>
     <p><strong>Rol:</strong> {{ empleado.role?.name || empleado.role }}</p>
     <p><strong>Hotel:</strong> {{ empleado.hotel }}</p>
+    <p><strong>Código:</strong> {{ empleado.code }}</p>
 
     <button
       class="btn-eliminar"
