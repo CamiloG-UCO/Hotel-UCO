@@ -1,0 +1,14 @@
+.reservation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mat-mdc-raised-button.mat-primary {
+  background-color: #004d40 !important;
+  color: white !important;
+}

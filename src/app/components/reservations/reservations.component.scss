@@ -14,6 +14,13 @@ $text-light: #555555;
     gap: 8px;
 }
 
+.create-rsv-button {
+    background: none;
+    border: none;
+    color: $primary;
+    font-size: 16px;
+}
+
 .color-primary {
     color: $primary;
 }

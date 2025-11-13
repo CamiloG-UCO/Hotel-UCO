@@ -1,0 +1,171 @@
+<nav class="navbar">
+  <div class="nav-left">
+    <h3>Habitaciones</h3>
+  </div>
+  <div class="nav-right">
+    <button class="config-button-menu" (click)="abrirModalCrear()">Crear habitación</button>
+    <button class="config-button-menu" (click)="volverAConfiguracion()">Volver</button>
+    <button class="config-button-menu" (click)="logout()">Cerrar sesión</button>
+  </div>
+</nav>
+
+<section class="content">
+  <div class="filters">
+    <div class="filter-tabs">
+      <button
+        class="filter-tab"
+        [class.active]="filtroSeleccionado === 'TODAS'"
+        (click)="cambiarFiltro('TODAS')"
+      >Todas</button>
+      <button
+        class="filter-tab"
+        [class.active]="filtroSeleccionado === 'ESTADO'"
+        (click)="cambiarFiltro('ESTADO')"
+      >Por estado</button>
+      <button
+        class="filter-tab"
+        [class.active]="filtroSeleccionado === 'HOTEL'"
+        (click)="cambiarFiltro('HOTEL')"
+      >Por hotel</button>
+      <button
+        class="filter-tab"
+        [class.active]="filtroSeleccionado === 'TIPO'"
+        (click)="cambiarFiltro('TIPO')"
+      >Por tipo</button>
+    </div>
+
+    <div class="filter-inputs">
+      <ng-container [ngSwitch]="filtroSeleccionado">
+        <div *ngSwitchCase="'ESTADO'" class="filter-row">
+          <label>
+            Estado
+            <select [(ngModel)]="estadoSeleccionado">
+              <option value="" disabled>Selecciona</option>
+              <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+            </select>
+          </label>
+          <button class="filter-action" (click)="buscarHabitaciones()">Buscar</button>
+        </div>
+
+        <div *ngSwitchCase="'HOTEL'" class="filter-row">
+          <label>
+            Código hotel
+            <input type="text" [(ngModel)]="hotelCodigo" (keyup.enter)="buscarHabitaciones()" />
+          </label>
+          <button class="filter-action" (click)="buscarHabitaciones()">Buscar</button>
+        </div>
+
+        <div *ngSwitchCase="'TIPO'" class="filter-row">
+          <label>
+            Tipo
+            <select [(ngModel)]="tipoSeleccionado">
+              <option value="" disabled>Selecciona</option>
+              <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+            </select>
+          </label>
+          <button class="filter-action" (click)="buscarHabitaciones()">Buscar</button>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="messages">
+    <div *ngIf="mensajeError" class="alert alert-error">{{ mensajeError }}</div>
+    <div *ngIf="mensajeExito" class="alert alert-success">{{ mensajeExito }}</div>
+  </div>
+
+  <div class="table-wrapper" *ngIf="!estaCargando; else loading">
+    <table *ngIf="habitaciones.length > 0; else emptyState">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Nombre</th>
+          <th>Hotel</th>
+          <th>Tipo</th>
+          <th>Capacidad</th>
+          <th>Estado</th>
+          <th>Permite reservas</th>
+          <th>Último cambio</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let habitacion of habitaciones">
+          <td>{{ habitacion.habitacionId }}</td>
+          <td>{{ habitacion.nombre }}</td>
+          <td>{{ habitacion.nombreHotel }}</td>
+          <td>{{ habitacion.tipo }}</td>
+          <td>{{ habitacion.capacidad }}</td>
+          <td>{{ habitacion.estadoDescripcion || habitacion.estado }}</td>
+          <td>{{ habitacion.permiteReservas ? 'Sí' : 'No' }}</td>
+          <td>{{ habitacion.fechaCambioEstado ? (habitacion.fechaCambioEstado | date:'short') : 'N/A' }}</td>
+          <td>
+            <button 
+              class="btn-mantenimiento" 
+              (click)="desactivarPorMantenimiento(habitacion)"
+              [disabled]="habitacion.estado !== 'ACTIVO'"
+              title="Desactivar por mantenimiento">
+              Mantenimiento
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination" *ngIf="filtroSeleccionado === 'TODAS' && totalPaginas > 0">
+    <button (click)="paginaAnterior()" [disabled]="page === 0">Anterior</button>
+    <span>Página {{ page + 1 }} de {{ totalPaginas }}</span>
+    <button (click)="paginaSiguiente()" [disabled]="page + 1 >= totalPaginas">Siguiente</button>
+    <span>Total: {{ totalElementos }} registros</span>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading">Cargando habitaciones...</div>
+  </ng-template>
+
+  <ng-template #emptyState>
+    <div class="empty-state">No hay habitaciones para mostrar.</div>
+  </ng-template>
+</section>
+
+<div class="modal-backdrop" *ngIf="mostrarModalCrear">
+  <div class="modal">
+    <header class="modal-header">
+      <h4>Nueva habitación</h4>
+      <button class="close" (click)="cerrarModalCrear()">×</button>
+    </header>
+
+    <div class="modal-body">
+      <label>
+        Código habitación
+        <input type="text" [(ngModel)]="nuevaHabitacion.habitacionId" />
+      </label>
+      <label>
+        Nombre
+        <input type="text" [(ngModel)]="nuevaHabitacion.nombre" />
+      </label>
+      <label>
+        Tipo
+        <select [(ngModel)]="nuevaHabitacion.tipo">
+          <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+        </select>
+      </label>
+      <label>
+        Capacidad
+        <input type="number" min="1" [(ngModel)]="nuevaHabitacion.capacidad" />
+      </label>
+      <label>
+        Código hotel
+        <input type="text" [(ngModel)]="nuevaHabitacion.hotelCodigo" />
+      </label>
+    </div>
+
+    <footer class="modal-footer">
+      <button class="btn-secondary" (click)="cerrarModalCrear()" [disabled]="creandoHabitacion">Cancelar</button>
+      <button class="btn-primary" (click)="crearHabitacion()" [disabled]="creandoHabitacion">
+        {{ creandoHabitacion ? 'Creando...' : 'Crear habitación' }}
+      </button>
+    </footer>
+  </div>
+</div>
