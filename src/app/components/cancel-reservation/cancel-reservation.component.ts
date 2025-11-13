@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ReservationService } from '../../services/reservation/cancel-reservation/reservation.service';
+import { CancelReservationService } from '../../services/reservation/cancel-reservation.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,7 +19,7 @@ export class CancelReservationComponent implements OnInit {
   canceling: boolean = false;
 
   constructor(
-    private cancelReservationService: ReservationService,
+    private cancelReservationService: CancelReservationService,
     private router: Router
   ) {}
 
