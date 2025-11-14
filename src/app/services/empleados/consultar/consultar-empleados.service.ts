@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class ConsultarEmpleadosService {
 
-  private readonly baseUrl = 'http://localhost:8080/api/empleados';
+  private readonly baseUrl = 'http://localhost:8080/api/empleados/consultar';
 
   constructor(private http: HttpClient) {}
 

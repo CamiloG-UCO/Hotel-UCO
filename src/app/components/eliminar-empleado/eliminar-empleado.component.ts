@@ -12,29 +12,31 @@ import { EliminarEmpleadoService } from '../../services/empleados/eliminar-emple
 })
 export class EliminarEmpleadoComponent {
 
-  idEmpleado = '';
+  codigoEmpleado: string = '';   // Código del empleado
   empleado: any = null;
-  cargando = false;
-  encontrado = false;
+  cargando: boolean = false;
+  encontrado: boolean = false;
 
   constructor(private eliminarEmpleadoService: EliminarEmpleadoService) {}
 
   buscarEmpleado(): void {
-    if (!this.idEmpleado.trim()) {
-      alert('Por favor ingrese un ID o número de empleado');
+
+    if (!this.codigoEmpleado.trim()) {
+      alert('Por favor ingrese el código del empleado');
       return;
     }
 
     this.cargando = true;
-    this.eliminarEmpleadoService.obtenerEmpleadoPorId(this.idEmpleado).subscribe({
-      next: (data) => {
+
+    this.eliminarEmpleadoService.obtenerEmpleadoPorCodigo(this.codigoEmpleado).subscribe({
+      next: (data: any) => {
         this.empleado = data;
         this.encontrado = true;
         this.cargando = false;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('❌ Error al buscar empleado:', err);
-        alert('No se encontró ningún empleado con ese ID');
+        alert(err.error?.error || 'No se encontró ningún empleado con ese código');
         this.cargando = false;
         this.encontrado = false;
       }
@@ -42,22 +44,24 @@ export class EliminarEmpleadoComponent {
   }
 
   eliminarEmpleado(): void {
+
     if (!confirm('¿Está seguro de eliminar este empleado? Esta acción no se puede deshacer.')) {
       return;
     }
 
     this.cargando = true;
-    this.eliminarEmpleadoService.eliminarEmpleado(this.idEmpleado).subscribe({
-      next: () => {
-        alert('✅ Empleado eliminado correctamente');
-        this.idEmpleado = '';
+
+    this.eliminarEmpleadoService.eliminarEmpleado(this.codigoEmpleado).subscribe({
+      next: (resp: any) => {
+        alert(resp.message || 'Empleado eliminado correctamente');
+        this.codigoEmpleado = '';
         this.empleado = null;
         this.encontrado = false;
         this.cargando = false;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('❌ Error al eliminar:', err);
-        alert('Error al eliminar empleado: ' + err.message);
+        alert(err.error?.error || 'Error al eliminar empleado');
         this.cargando = false;
       }
     });

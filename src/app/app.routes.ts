@@ -28,9 +28,8 @@ import { HabitacionListComponent } from './components/configuracion/habitacion/h
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'RegistrarEmpleado', component: CrearEmpleadoComponent },
   { path: 'EliminarEmpleado', component:EliminarEmpleadoComponent},
-  { path: 'ActualizarEmpleado', component: ActualizarEmpleadoComponent, canActivate: [authGuard] },
+  { path: 'ActualizarEmpleado', component: ActualizarEmpleadoComponent, },
 
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
@@ -43,6 +42,8 @@ export const routes: Routes = [
   { path: 'hotel/new', component: CrearHotelComponent, canActivate: [authGuard]},
   { path: 'hotel/edit/:id', component: ActualizarHotelComponent, canActivate: [authGuard]},
   { path: 'hotel/view', component: VerHotelComponent, canActivate: [authGuard]},
+  { path: 'RegistrarEmpleado', component: CrearEmpleadoComponent, canActivate: [authGuard] },
+
   {
     path: 'home',
     component: HomeComponent,
