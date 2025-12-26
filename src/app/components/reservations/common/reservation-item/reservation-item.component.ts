@@ -2,11 +2,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ReservationResponse } from '../../reservations.models';
 import { CancelReservationDialogComponent } from '../cancel-reservation-dialog/cancel-reservation-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   standalone: true,
   selector: 'app-reservation-item',
-  imports: [],
+  imports: [
+    MatButtonModule
+  ],
   templateUrl: './reservation-item.component.html',
   styleUrl: './reservation-item.component.scss'
 })
@@ -14,6 +17,7 @@ export class ReservationItemComponent {
 
   @Input() reservation: ReservationResponse | null = null;
   @Output() cancelClick = new EventEmitter<ReservationResponse>();
+  @Output() checkInClick = new EventEmitter<string>();
 
   constructor(
     public dialog: MatDialog
@@ -27,5 +31,10 @@ export class ReservationItemComponent {
         this.cancelClick.emit(this.reservation!);
       }
     });
+  }
+
+  onCheckIn() {
+    if (!this.reservation) return;
+    this.checkInClick.emit(this.reservation.reservationCode);
   }
 }

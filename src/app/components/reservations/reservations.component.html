@@ -6,6 +6,7 @@
             *ngFor="let r of reservations"
             [reservation]="r"
             (cancelClick)="onCancelReservation($event)"
+            (checkInClick)="onCheckInReservation($event)"
         >
         </app-reservation-item>
     </div>

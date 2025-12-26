@@ -9,13 +9,18 @@
         <b>{{reservation?.startDate}}</b>
         Hasta:
         <b>{{reservation?.endDate}}</b>
+        <br/>
+        <small><u>Check-In: {{reservation?.checkIn ?? "No realizado"}}</u></small>
     </div>
     <div>
         Estado
         <br/>
         <b>{{reservation?.status}}</b>
     </div>
-    <button class="cancel-button" type="button" (click)="onCancel()">
+    <button matButton type="button" (click)="onCheckIn()">
+        <u>Check-In</u>
+    </button>
+    <button class="cancel-button" matButton="filled" type="button" (click)="onCancel()">
         <u>Cancelar</u>
     </button>
 </div>
